@@ -1,7 +1,0 @@
-- GotoSlide -> bij nummer hoger dan aantal slides, ga naar laatste slide
-
-
-
-TODO:
-Style.CreateStyles moet naar factory met builder pattern: https://www.youtube.com/watch?v=xy6FUwftz1Q
-Iterator pattern voor de slide items
