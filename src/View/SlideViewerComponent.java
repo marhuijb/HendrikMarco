@@ -1,4 +1,5 @@
 package View;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -9,7 +10,6 @@ import javax.swing.JFrame;
 
 import Model.Presentation;
 import Model.Slide;
-
 
 /** <p>SlideViewerComponent is een grafische component die Slides kan laten zien.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -28,9 +28,6 @@ public class SlideViewerComponent extends JComponent {
 	private Presentation presentation = null; // de presentatie
 	private JFrame frame = null;
 	
-	private String slidePage;
-	private String feedback = "whatever you want, whatever you need";
-		
 	private static final long serialVersionUID = 227L;
 	
 	private static final Color BGCOLOR = Color.white;
@@ -40,11 +37,7 @@ public class SlideViewerComponent extends JComponent {
 	private static final int FONTHEIGHT = 10;
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
-	
-	public void setFeedback(String message){
-		feedback = message;
-	}
-		
+
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
 		setBackground(BGCOLOR); 
 		presentation = pres;
@@ -76,12 +69,8 @@ public class SlideViewerComponent extends JComponent {
 		}
 		g.setFont(labelFont);
 		g.setColor(COLOR);
-		slidePage = "Slide " + (1 + presentation.getSlideNumber()) + " of " +
-                 presentation.getSize();
-
-		g.drawString(slidePage,XPOS, YPOS);
-		g.drawString(feedback,10, getHeight() - YPOS);
-		
+		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
+                 presentation.getSize(), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
 		slide.draw(g, area, this);
 	}
