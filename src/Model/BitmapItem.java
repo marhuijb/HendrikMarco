@@ -64,8 +64,18 @@ public class BitmapItem extends SlideItem {
 		int height = y + (int) (myStyle.leading * scale);
 		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
                 (int) (bufferedImage.getHeight(observer)*scale), observer);
+
+		//TODO: debug!
+		int rectX = width;
+		int rectY = height;
+		int rectW = (int) (bufferedImage.getWidth(observer)*scale);
+		int rectH = (int) (bufferedImage.getHeight(observer)*scale);
+				
+		g.drawRect (rectX,rectY,rectW,rectH);  
+		setBoundingBox(new Rectangle(rectX,rectY,rectW,rectH));
 	}
 
+	
 	public String toString() {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";
 	}
