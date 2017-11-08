@@ -15,7 +15,7 @@ class DemoPresentation extends Accessor {
 		presentation.setTitle("Demo Presentation");
 		Slide slide;
 		slide = new Slide();
-		slide.setTitle("JabberPoint");
+		slide.setTitle("JabberPoint Hendrik&Marco versie");
 		slide.append(1, "Het Java Presentatie Tool");
 		slide.append(2, "Copyright (c) 1996-2000: Ian Darwin");
 		slide.append(2, "Copyright (c) 2000-now:");

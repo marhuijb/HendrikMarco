@@ -5,9 +5,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import Controller.KeyController;
-import Controller.MenuController;
-import Controller.MouseController;
+import Controller.*;
+import Factory.Interface.*;
 import Model.Presentation;
 
 /**
@@ -28,16 +27,16 @@ public class SlideViewerFrame extends JFrame {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	
-	public SlideViewerFrame(String title, Presentation presentation) {
+	public SlideViewerFrame(String title, Presentation presentation, ICommandFactory commandFactory) {
 		super(title);
 		SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
 		presentation.setShowView(slideViewerComponent);
-		setupWindow(slideViewerComponent, presentation);
+		setupWindow(slideViewerComponent, presentation, commandFactory);
 	}
 
 // De GUI opzetten
 	public void setupWindow(SlideViewerComponent 
-			slideViewerComponent, Presentation presentation) {
+			slideViewerComponent, Presentation presentation, ICommandFactory commandFactory) {
 		setTitle(JABTITLE);
 		addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
@@ -45,7 +44,8 @@ public class SlideViewerFrame extends JFrame {
 				}
 			});
 		getContentPane().add(slideViewerComponent);
-		addKeyListener(new KeyController(presentation)); // een controller toevoegen
+				
+		addKeyListener(new KeyController(presentation, commandFactory)); // een controller toevoegen
 		setMenuBar(new MenuController(this, presentation));	// nog een controller toevoegen
 		addMouseListener(new MouseController(presentation)); // nog een controller toevoegen
 		addMouseMotionListener(new MouseController(presentation)); // nog een controller toevoegen

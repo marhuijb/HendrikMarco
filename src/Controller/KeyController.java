@@ -1,7 +1,8 @@
 package Controller;
+import Controller.Command.*;
+import Factory.Interface.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import Model.Presentation;
 
 /** <p>This is the KeyController (KeyListener)</p>
@@ -16,9 +17,11 @@ import Model.Presentation;
 
 public class KeyController extends KeyAdapter {
 	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+	private ICommandFactory commandFactory; 
 
-	public KeyController(Presentation p) {
-		presentation = p;
+	public KeyController(Presentation p, ICommandFactory c) {
+		presentation = p;			
+		commandFactory = c;
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
@@ -27,7 +30,9 @@ public class KeyController extends KeyAdapter {
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_ENTER:
 			case '+':
-				presentation.nextSlide();
+				//presentation.nextSlide();		
+				AbstractCommand command = commandFactory.createNextSlideCommand();
+				command.execute();
 				break;
 			case KeyEvent.VK_PAGE_UP:
 			case KeyEvent.VK_UP:
