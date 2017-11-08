@@ -3,7 +3,6 @@ import Controller.Command.*;
 import Factory.Interface.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import Model.Presentation;
 
 /** <p>This is the KeyController (KeyListener)</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -15,12 +14,10 @@ import Model.Presentation;
  * @version 1.6 2014/05/16 Sylvia Stuurman
 */
 
-public class KeyController extends KeyAdapter {
-	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+public class KeyController extends KeyAdapter {	
 	private ICommandFactory commandFactory; 
 
-	public KeyController(Presentation p, ICommandFactory c) {
-		presentation = p;			
+	public KeyController(ICommandFactory c) {			
 		commandFactory = c;
 	}
 
@@ -30,18 +27,19 @@ public class KeyController extends KeyAdapter {
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_ENTER:
 			case '+':
-				//presentation.nextSlide();		
-				AbstractCommand command = commandFactory.createNextSlideCommand();
-				command.execute();
+				AbstractCommand nextCommand = commandFactory.createNextSlideCommand();
+				nextCommand.execute();
 				break;
 			case KeyEvent.VK_PAGE_UP:
 			case KeyEvent.VK_UP:
 			case '-':
-				presentation.prevSlide();
+				AbstractCommand previousCommand = commandFactory.createPreviousSlideCommand();
+				previousCommand.execute();
 				break;
 			case 'q':
 			case 'Q':
-				System.exit(0);
+				AbstractCommand exitCommand = commandFactory.createExitCommand();
+				exitCommand.execute();
 				break; // wordt nooit bereikt als het goed is
 			default:
 				break;

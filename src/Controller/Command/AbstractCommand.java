@@ -6,9 +6,11 @@ import Controller.Interface.*;
  */
 public abstract class AbstractCommand{
 	protected IPresentationController presentationController;
+	protected IApplicationController applicationController;
 	
-	protected AbstractCommand(IPresentationController presentatieController) {
+	protected AbstractCommand(IPresentationController presentatieController, IApplicationController applicationController) {
 		this.presentationController = presentatieController;
+		this.applicationController = applicationController;
 	}
 	
 	public abstract void execute();

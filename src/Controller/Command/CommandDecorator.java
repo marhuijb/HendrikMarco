@@ -6,8 +6,8 @@ import Controller.Interface.*;
  * Abstract class for the command class and is used in the decorator patterns for chaining commands to each others. 
  */
 public abstract class CommandDecorator extends AbstractCommand{
-	protected CommandDecorator(IPresentationController presentationController) {
-		super(presentationController);
+	protected CommandDecorator(IPresentationController presentationController, IApplicationController applicationController) {
+		super(presentationController, applicationController);
 	}
 	
 	/*
@@ -20,7 +20,7 @@ public abstract class CommandDecorator extends AbstractCommand{
 	 * @see Controller.Command.AbstractCommand#execute()
 	 */
 	public void execute(){
-		if (nextCommand == null) {
+		if (nextCommand != null) {
 			nextCommand.execute();
 		}
 	}

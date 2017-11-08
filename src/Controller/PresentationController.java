@@ -33,19 +33,18 @@ public class PresentationController implements IPresentationController{
 	}
 	
 	public void previousSlide() {
-		
+		presentation.prevSlide();
 	}
 	
 	public void firstSlide() {
-		
+		presentation.setSlideNumber(0);
 	}
 	
 	public void lastSlide() {
-		
+		presentation.setSlideNumber(0);		
 	}
 	
-	public void goToSlide() {
-		
+	public void goToSlide() {		
 	}
 	
 	public void goToSlide(int slideNumber) {

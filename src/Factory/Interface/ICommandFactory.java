@@ -7,4 +7,7 @@ import Controller.Command.*;
  */
 public interface ICommandFactory{
 	public AbstractCommand createNextSlideCommand();
+	public AbstractCommand createPreviousSlideCommand();
+	public AbstractCommand createExitCommand();
+	public AbstractCommand createAboutCommand();
 }

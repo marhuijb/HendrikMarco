@@ -38,14 +38,16 @@ public class JabberPoint {
 		Style.createStyles();
 		
 		IPresentationController presentationController = PresentationController.getInstance();
+		IApplicationController applicationController = ApplicationController.getInstance();
 		
 		// Create the factories
-		ICommandFactory commandFactory = new CommandFactory(presentationController);
+		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);
 		
 		Presentation presentation = new Presentation();
 		presentationController.setPresentation(presentation);			
 		
-		new SlideViewerFrame(JABVERSION, presentation, commandFactory);
+		SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, presentation, commandFactory);
+		applicationController.setFrame(frame);
 		
 		try {
 			if (argv.length == 0) { // een demo presentatie
