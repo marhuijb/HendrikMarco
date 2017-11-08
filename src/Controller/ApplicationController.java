@@ -8,20 +8,7 @@ import View.*;
  * Controller class for the JabberPoint application.
  */
 public class ApplicationController implements IApplicationController{
-	private static IApplicationController instance;
 	private JFrame parent;
-	
-	private ApplicationController() {
-	}
-	
-	public static IApplicationController getInstance()
-	{
-		if (instance == null) {
-			instance = new ApplicationController();
-		}
-		
-		return instance;
-	}
 	
 	public void open() {
 		

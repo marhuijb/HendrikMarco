@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 import Controller.Interface.*;
 import Factory.Implementation.*;
 import Factory.Interface.*;
-import Controller.*;
 import Model.Accessor;
 import Model.Presentation;
 import Model.Style;
@@ -36,12 +35,11 @@ public class JabberPoint {
 	public static void main(String argv[]) {
 					
 		Style.createStyles();
+				
+		IApplicationController applicationController = ApplicationControllerFactory.getApplicationController();		
+		IPresentationController presentationController = PresentationControllerFactory.getPresentationController();
 		
-		IPresentationController presentationController = PresentationController.getInstance();
-		IApplicationController applicationController = ApplicationController.getInstance();
-		
-		// Create the factories
-		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);
+		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);		
 		
 		Presentation presentation = new Presentation();
 		presentationController.setPresentation(presentation);			
