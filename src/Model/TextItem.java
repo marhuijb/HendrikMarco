@@ -89,30 +89,32 @@ public class TextItem extends SlideItem {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		Point pen = new Point(x + (int) (myStyle.indent * scale), y + (int) (myStyle.leading * scale));
 
-		int rectX = pen.x; // correct
-		int rectY = pen.y + 10; // correct
+		//System.out.println("text:" + text + ", pens:" + pen.toString());
+
+		int rectX = pen.x;
+		int rectY = pen.y;
 		int rectH = 0;
 		int rectW = 0;
 
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(myStyle.color);
-		Iterator<TextLayout> it = layouts.iterator();
-		while (it.hasNext()) {
-			TextLayout layout = it.next();
-			pen.y += layout.getAscent();
-			layout.draw(g2d, pen.x, pen.y);
-			pen.y += layout.getDescent();
-		
-			//TODO: debug!
-			rectH += layout.getAscent();
-			rectW += layout.getDescent()*50;
-			
-		}
+	
+		TextLayout layout = layouts.get(0);
+		pen.y += layout.getAscent();
+		rectY += layout.getDescent();
+
+		layout.draw(g2d, pen.x, pen.y);
+		pen.y += layout.getDescent();
+
+		rectH += layout.getBounds().getHeight();
+		rectW += layout.getBounds().getWidth();
 		
 		//TODO: debug!
-		g.drawRect(rectX,rectY,rectW,rectH -10);  
-		this.setBoundingBox(new Rectangle(rectX,rectY,rectW,rectH));
-		//System.out.println(getBoundingBox().toString());
+		g.drawRect(rectX,rectY,rectW,rectH);  
+		//this.setBoundingBox(new Rectangle(rectX,rectY,rectW,rectH));
+		this.setBoundingBox(new Rectangle(rectX,rectY,rectX+rectW,rectY+rectH));
+
+		// System.out.println(getBoundingBox().toString());
 	}
 
 	private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
