@@ -30,7 +30,10 @@ public class MouseController extends MouseInputAdapter { // implements MouseList
 
 			Rectangle rect = slideItem.getBoundingBox();
 
-			if (rect != null && rect.contains(x, y)) {
+			//if (rect != null && rect.contains(x, y)) {
+
+			if (x > rect.x && x < rect.width && y > rect.y && y < rect.height) {
+				
 				System.out.println("Click in " + slideItem.toString() + ":" + rect.toString());
 			}
 
@@ -38,7 +41,7 @@ public class MouseController extends MouseInputAdapter { // implements MouseList
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		// System.out.println("Mousemovement on " + e.getX() + ":" + e.getY());
+		//System.out.println("Mousemovement on " + e.getX() + ":" + e.getY());
 	}
 
 }
