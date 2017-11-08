@@ -32,6 +32,7 @@ public class MouseController extends MouseInputAdapter { // implements MouseList
 
 			//if (rect != null && rect.contains(x, y)) {
 
+			
 			if (x > rect.x && x < rect.width && y > rect.y && y < rect.height) {
 				
 				System.out.println("Click in " + slideItem.toString() + ":" + rect.toString());
