@@ -18,6 +18,7 @@ public class MouseController extends MouseInputAdapter { // implements MouseList
 		presentation = p;
 	}
 
+	
 	public void mouseClicked(MouseEvent e) {
 
 		int x = e.getX();

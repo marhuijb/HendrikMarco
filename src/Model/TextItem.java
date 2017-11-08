@@ -36,7 +36,6 @@ public class TextItem extends SlideItem {
 	private String text;
 
 	private static final String EMPTYTEXT = "No Text Given";
-
 	
 	// een textitem van level level, met als tekst string
 	public TextItem(int level, String string) {
