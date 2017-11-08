@@ -1,7 +1,10 @@
 package Application;
 
 import javax.swing.JOptionPane;
-
+import Controller.Interface.*;
+import Factory.Implementation.*;
+import Factory.Interface.*;
+import Controller.*;
 import Model.Accessor;
 import Model.Presentation;
 import Model.Style;
@@ -31,10 +34,18 @@ public class JabberPoint {
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
-		
+					
 		Style.createStyles();
+		
+		IPresentationController presentationController = PresentationController.getInstance();
+		
+		// Create the factories
+		ICommandFactory commandFactory = new CommandFactory(presentationController);
+		
 		Presentation presentation = new Presentation();
-		new SlideViewerFrame(JABVERSION, presentation);
+		presentationController.setPresentation(presentation);			
+		
+		new SlideViewerFrame(JABVERSION, presentation, commandFactory);
 		
 		try {
 			if (argv.length == 0) { // een demo presentatie
