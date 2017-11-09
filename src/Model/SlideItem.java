@@ -19,6 +19,8 @@ public abstract class SlideItem {
 
 	private Rectangle boundingBox = null;
 	
+	protected boolean hoverStatus = false;
+	
 	public SlideItem(int lev) {
 		level = lev;
 	}
@@ -31,7 +33,16 @@ public abstract class SlideItem {
 	public int getLevel() {
 		return level;
 	}
-
+	// Verander HoverStatus
+	public void SetHoverStatus(boolean inside) {
+		hoverStatus = inside;
+	}
+	
+	// Koppel HoverStatus status terug
+	public boolean GetHoverStatus() {
+		return hoverStatus;
+	}
+	
 	public void setBoundingBox(Rectangle boundingBox) {
 		this.boundingBox = boundingBox;
 	}

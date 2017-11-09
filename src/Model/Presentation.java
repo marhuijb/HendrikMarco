@@ -48,6 +48,11 @@ public class Presentation {
 		this.slideViewComponent = slideViewerComponent;
 	}
 
+	// repaint de slideViewComponent
+	public void rePaint() {
+		slideViewComponent.repaint();
+	}
+
 	// geef het nummer van de huidige slide
 	public int getSlideNumber() {
 		return currentSlideNumber;

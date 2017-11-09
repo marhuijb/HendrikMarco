@@ -9,8 +9,7 @@ import javax.swing.event.MouseInputAdapter;
 import Model.Presentation;
 import Model.SlideItem;
 
-public class MouseController extends MouseInputAdapter { // implements MouseListener {
-
+public class MouseController extends MouseInputAdapter {
 	private Presentation presentation; // Er worden commando's gegeven aan de
 										// presentatie
 
@@ -18,32 +17,57 @@ public class MouseController extends MouseInputAdapter { // implements MouseList
 		presentation = p;
 	}
 
-	
 	public void mouseClicked(MouseEvent e) {
 
 		int x = e.getX();
-		int y = e.getY();
-		System.out.println("clicked: " + x + " : " + y);
+		int y = e.getY() - 50;
+		//System.out.println("clicked: " + x + " : " + y);
 
-		Vector<SlideItem> slideItems = presentation.getCurrentSlide().getSlideItems();
+		try {
+			Vector<SlideItem> slideItems = presentation.getCurrentSlide().getSlideItems();
 
-		for (SlideItem slideItem : slideItems) {
+			for (SlideItem slideItem : slideItems) {
 
-			Rectangle rect = slideItem.getBoundingBox();
+				Rectangle rect = slideItem.getBoundingBox();
 
-			//if (rect != null && rect.contains(x, y)) {
-
-			
-			if (x > rect.x && x < rect.width && y > rect.y && y < rect.height) {
-				
-				System.out.println("Click in " + slideItem.toString() + ":" + rect.toString());
+				if (rect != null && rect.contains(x, y)) {
+					System.out.println("Click in " + slideItem.toString()); // + ":" + rect.toString());
+				}
 			}
-
+		} catch (NullPointerException e1) {
 		}
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		//System.out.println("Mousemovement on " + e.getX() + ":" + e.getY());
-	}
+		int x = e.getX();
+		int y = e.getY() - 50;
+		
+		try {
+			Vector<SlideItem> slideItems = presentation.getCurrentSlide().getSlideItems();
 
+			for (SlideItem slideItem : slideItems) {
+
+				Rectangle rect = slideItem.getBoundingBox();
+
+				if (rect != null && rect.contains(x, y)) {
+					// en dus niet
+					// slideItem.SetHoverStatus(!slideItem.GetHoverStatus())
+					// want dan gaan we voortdurend wijzigen van status!
+
+					if (!slideItem.GetHoverStatus()) {
+						slideItem.SetHoverStatus(true);
+						// System.out.println("Hover!");
+						presentation.rePaint();
+					}
+				} else {
+					if (slideItem.GetHoverStatus()) {
+						slideItem.SetHoverStatus(false);
+						// System.out.println("not so much Hover!");
+						presentation.rePaint();
+					}
+				}
+			}
+		} catch (NullPointerException e1) {
+		}
+	}
 }

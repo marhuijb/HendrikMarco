@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Rectangle;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -36,7 +37,7 @@ public class TextItem extends SlideItem {
 	private String text;
 
 	private static final String EMPTYTEXT = "No Text Given";
-	
+
 	// een textitem van level level, met als tekst string
 	public TextItem(int level, String string) {
 		super(level);
@@ -52,6 +53,7 @@ public class TextItem extends SlideItem {
 	public String getText() {
 		return text == null ? "" : text;
 	}
+
 
 	// geef de AttributedString voor het item
 	public AttributedString getAttributedString(Style style, float scale) {
@@ -97,11 +99,12 @@ public class TextItem extends SlideItem {
 		int rectH = 0; // hoogte textItem
 		int rectW = 0; // breedte textItem
 
-		int rectX2 = 0; // rechtsonder x
-		int rectY2 = 0; // rechtsonder y
-
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(myStyle.color);
+		if (GetHoverStatus()) {
+			g2d.setColor(Color.RED);
+		} else {
+			g2d.setColor(myStyle.color);
+		}
 
 		TextLayout layout = layouts.get(0);
 		pen.y += layout.getAscent();
@@ -113,17 +116,9 @@ public class TextItem extends SlideItem {
 		rectH += layout.getBounds().getHeight();
 		rectW += layout.getBounds().getWidth();
 
-		rectX2 = rectX + rectW;
-		rectY2 = (rectY) + (rectH);
-
-		// TODO: debug!
 		g.drawRect(rectX, rectY, rectW, rectH);
-		
-		//this.setBoundingBox(new Rectangle(rectX,rectY,rectW,rectH));
 
-		this.setBoundingBox(new Rectangle(rectX, rectY, rectX2, rectY2));
-
-		System.out.println(rectX + ":" + rectY + ":" + rectX2 + ":" + rectY2);
+		this.setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
 
 	}
 
