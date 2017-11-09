@@ -3,7 +3,7 @@ package Controller.Interface;
 import Model.Presentation;
 
 /*
- * 
+ * Interface for the presentation controller.
  */
 public interface IPresentationController{
 	public void nextSlide();
@@ -13,4 +13,6 @@ public interface IPresentationController{
 	public void goToSlide();
 	public void goToSlide(int slideNumber);
 	public void setPresentation(Presentation presentation);
+	public void clear();
+	public Presentation getPresentation();
 }

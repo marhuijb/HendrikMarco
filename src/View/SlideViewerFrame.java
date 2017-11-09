@@ -46,7 +46,7 @@ public class SlideViewerFrame extends JFrame {
 		getContentPane().add(slideViewerComponent);
 				
 		addKeyListener(new KeyController(commandFactory)); // een controller toevoegen
-		setMenuBar(new MenuController(this, presentation, commandFactory));	// nog een controller toevoegen
+		setMenuBar(new MenuController(commandFactory));	// nog een controller toevoegen
 		addMouseListener(new MouseController(presentation)); // nog een controller toevoegen
 		addMouseMotionListener(new MouseController(presentation)); // nog een controller toevoegen
 		

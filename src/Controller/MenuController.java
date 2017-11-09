@@ -1,21 +1,14 @@
 package Controller;
 
 import java.awt.MenuBar;
-import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
 
 import Controller.Command.AbstractCommand;
 import Factory.Interface.ICommandFactory;
-import Model.Accessor;
-import Model.Presentation;
-import Model.XMLAccessor;
 
 /** <p>De controller voor het menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -26,12 +19,7 @@ import Model.XMLAccessor;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class MenuController extends MenuBar {
-	
-	private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
-	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
-	private ICommandFactory commandFactory;
-	
+public class MenuController extends MenuBar {	
 	private static final long serialVersionUID = 227L;
 	
 	protected static final String ABOUT = "About";
@@ -41,8 +29,7 @@ public class MenuController extends MenuBar {
 	protected static final String HELP = "Help";
 	protected static final String NEW = "New";
 	protected static final String NEXT = "Next";
-	protected static final String OPEN = "Open";
-	protected static final String PAGENR = "Page number?";
+	protected static final String OPEN = "Open";	
 	protected static final String PREV = "Prev";
 	protected static final String SAVE = "Save";
 	protected static final String VIEW = "View";
@@ -54,17 +41,12 @@ public class MenuController extends MenuBar {
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
 
-	public MenuController(Frame frame, Presentation pres, ICommandFactory commandFactory) {
-		this.commandFactory = commandFactory;
-		parent = frame;
-		presentation = pres;
-		MenuItem menuItem;
-		
+	public MenuController(ICommandFactory commandFactory) {				
 		//Create file menu
 		Menu fileMenu = new Menu(FILE);		
-		fileMenu.add(createOpenMenuItem());
-		fileMenu.add(createNewMenuItem());
-		fileMenu.add(createSaveMenuItem());
+		fileMenu.add(createMenuItem(OPEN, commandFactory.createOpenPresentationCommand()));
+		fileMenu.add(createMenuItem(NEW, commandFactory.createNewPresentationCommand()));
+		fileMenu.add(createMenuItem(SAVE, commandFactory.createSavePresentationCommand()));
 		fileMenu.addSeparator();
 		fileMenu.add(createMenuItem(EXIT, commandFactory.createExitCommand()));		
 		add(fileMenu);		
@@ -72,16 +54,8 @@ public class MenuController extends MenuBar {
 		//Create view menu
 		Menu viewMenu = new Menu(VIEW);
 		viewMenu.add(createMenuItem(NEXT, commandFactory.createNextSlideCommand()));
-		viewMenu.add(createMenuItem(PREV, commandFactory.createPreviousSlideCommand()));
-		
-		viewMenu.add(menuItem = mkMenuItem(GOTO));
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				String pageNumberStr = JOptionPane.showInputDialog((Object)PAGENR);
-				int pageNumber = Integer.parseInt(pageNumberStr);
-				presentation.setSlideNumber(pageNumber - 1);
-			}
-		});
+		viewMenu.add(createMenuItem(PREV, commandFactory.createPreviousSlideCommand()));		
+		viewMenu.add(createMenuItem(GOTO, commandFactory.createGoToSlideCommand()));
 		add(viewMenu);
 		
 		//Create help menu
@@ -89,79 +63,14 @@ public class MenuController extends MenuBar {
 		helpMenu.add(createMenuItem(ABOUT, commandFactory.createAboutCommand()));		
 		setHelpMenu(helpMenu);		// nodig for portability (Motif, etc.).
 	}
-
-	/*	
-	 * een menu-item aanmaken
-	 */
-	private MenuItem mkMenuItem(String name) {
-		return new MenuItem(name, new MenuShortcut(name.charAt(0)));
-	}
 	
 	/*
-	 * Create Open menu item
-	 */
-	private MenuItem createOpenMenuItem() {
-		MenuItem menuItem = mkMenuItem(OPEN); 
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.clear();
-				Accessor xmlAccessor = new XMLAccessor();
-				try {
-					xmlAccessor.loadFile(presentation, TESTFILE);
-					presentation.setSlideNumber(0);
-				} catch (IOException exc) {
-					JOptionPane.showMessageDialog(parent, IOEX + exc, 
-         			LOADERR, JOptionPane.ERROR_MESSAGE);
-				}
-				parent.repaint();
-			}
-		} );
-		
-		return menuItem;
-	}
-	
-	/*
-	 * Create New menu item
-	 */
-	private MenuItem createNewMenuItem(){
-		MenuItem menuItem = mkMenuItem(NEW); 
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.clear();
-				parent.repaint();
-			}
-		});
-		
-		return menuItem;
-	}
-	
-	/*
-	 * Create Save menu item
-	 */
-	private MenuItem createSaveMenuItem() {
-		MenuItem menuItem = mkMenuItem(SAVE);
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Accessor xmlAccessor = new XMLAccessor();
-				try {
-					xmlAccessor.saveFile(presentation, SAVEFILE);
-				} catch (IOException exc) {
-					JOptionPane.showMessageDialog(parent, IOEX + exc, 
-							SAVEERR, JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		return menuItem;
-	}
-
-	/*
-	 * Create a menu item
+	 * Create a menu item and add the command as action listener
 	 * @param name The visible name of the menu item
 	 * @param command The command to be executed when the menu item is clicked.
 	 */
 	private MenuItem createMenuItem(String name, AbstractCommand command) {
-		MenuItem menuItem = mkMenuItem(name);
+		MenuItem menuItem = new MenuItem(name, new MenuShortcut(name.charAt(0)));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				command.execute();

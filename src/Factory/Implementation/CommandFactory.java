@@ -36,6 +36,30 @@ public class CommandFactory implements ICommandFactory{
 	}
 	
 	/*
+	 * Create FirstSlide Command
+	 *  @see Controller.Command.FirstSlideCommand
+	 */
+	public AbstractCommand createFirstSlideCommand() {
+		return new FirstSlideCommand(presentationController);
+	}
+	
+	/*
+	 * Create Last slide Command
+	 * @see Controller.Command.LastSlideCommand
+	 */
+	public AbstractCommand createLastSlideCommand() {
+		return new LastSlideCommand(presentationController);
+	}
+
+	/*
+	 * Create GoTo Slide Command
+	 * @see Controller.Command.GotoSlideCommand
+	 */
+	public AbstractCommand createGoToSlideCommand() {
+		return new GoToSlideCommand(presentationController);
+	}	
+	
+	/*
 	 * Create Exit Command
 	 * @see Controller.Command.ExitCommand
 	 */
@@ -49,5 +73,37 @@ public class CommandFactory implements ICommandFactory{
 	 */
 	public AbstractCommand createAboutCommand() {
 		return new AboutCommand(applicationController);
+	}
+
+	/*
+	 * Create Play Sound command
+	 * @see Controller.Command.PlaySoundCommand
+	 */
+	public AbstractCommand createPlaySoundCommand() {
+		return new PlaySoundCommand();
+	}
+
+	/*
+	 * Create new presentation command
+	 * @see Controller.Command.NewPresentationCommand
+	 */
+	public AbstractCommand createNewPresentationCommand() {
+		return new NewPresentationCommand(presentationController, applicationController);
+	}
+
+	/*
+	 * Create save presentation command
+	 * @see Controller.Command.SavePresentationCommand
+	 */
+	public AbstractCommand createSavePresentationCommand() {
+		return new SavePresentationCommand(presentationController, applicationController);
+	}
+
+	/*
+	 * Create the open presentation command
+	 * @see Controller.Command.OpenPresentationCommand
+	 */
+	public AbstractCommand createOpenPresentationCommand() {
+		return new OpenPresentationCommand(presentationController, applicationController);
 	}
 }
