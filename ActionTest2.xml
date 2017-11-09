@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE presentation SYSTEM "jabberpoint2.dtd">
+<presentation>
+	<showtitle>XML-Based Presentation for Jabberpoint Version 2</showtitle>
+	<slide>
+		<title>JabberPoint XML-Demo</title>
+		<items>		
+			<text level="1">Welkom bij Jabberpoint</text>		
+			<text level="2">Copyright (c) 1996-2000 Ian Darwin</text>
+			<action name="next">
+				<action name="beep">
+					<text level="3" >Next Slide</text>
+				</action>
+			</action>
+		</items>		
+	</slide>
+	<slide>
+		<title>Second slide</title>
+		<items>
+			<text level="1">Second slide</text>
+			<action name="last">
+				<text level="3">Last slide</text>
+			</action>
+			<action name="open" fileName="ActionTest.xml">
+				<text level="1" >Open presentation 1</text>
+			</action>
+		</items>
+	</slide>
+</presentation>
