@@ -18,10 +18,6 @@ public abstract class Accessor {
 	public static final String DEMO_NAME = "Demonstratie presentatie";
 	public static final String DEFAULT_EXTENSION = ".xml";
 
-	public static Accessor getDemoAccessor() {
-		return new DemoPresentation();
-	}
-
 	public Accessor() {
 	}
 

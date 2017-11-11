@@ -18,10 +18,10 @@ public class KeyController extends KeyAdapter {
 	private ICommandFactory commandFactory; 
 
 	public KeyController(ICommandFactory c) {			
-		commandFactory = c;
+		commandFactory = c;			
 	}
 
-	public void keyPressed(KeyEvent keyEvent) {
+	public void keyPressed(KeyEvent keyEvent) {				
 		switch(keyEvent.getKeyCode()) {
 			case KeyEvent.VK_PAGE_DOWN:
 			case KeyEvent.VK_DOWN:

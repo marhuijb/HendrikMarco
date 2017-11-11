@@ -1,5 +1,14 @@
-package Util.Interface;
+package Util.Implementation;
 
-public interface IReader{
-	public readPresentation
+import Factory.Interface.*;
+import Model.Presentation;
+
+public abstract class AbstractReader{
+	protected IPresentationFactory presentationFactory;
+	
+	 protected AbstractReader(IPresentationFactory presentationFactory){
+		this.presentationFactory = presentationFactory;
+	}
+	
+	public abstract Presentation readPresentation(String fileName);
 }

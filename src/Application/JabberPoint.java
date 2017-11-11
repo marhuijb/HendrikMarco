@@ -40,13 +40,17 @@ public class JabberPoint {
 		IPresentationController presentationController = PresentationControllerFactory.getPresentationController();
 		
 		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);		
+		FileFormatFactory fileFormatFactory = new FileFormatFactory(new PresentationFactory());
+		IReaderFactory readerFactory = new ReaderFactory(fileFormatFactory);
 		
-		Presentation presentation = new Presentation();
+		Presentation presentation = readerFactory.createReader().readPresentation(argv.length == 0 ? "" : argv[0]);			
 		presentationController.setPresentation(presentation);			
 		
 		SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, presentation, commandFactory);
 		applicationController.setFrame(frame);
+		presentation.setSlideNumber(0); //TODO: op een andere plek? Nu wordt hij pas getekend.
 		
+		/*
 		try {
 			if (argv.length == 0) { // een demo presentatie
 				Accessor.getDemoAccessor().loadFile(presentation, "");
@@ -58,6 +62,6 @@ public class JabberPoint {
 			JOptionPane.showMessageDialog(null,
 					IOERR + ex, JABERR,
 					JOptionPane.ERROR_MESSAGE);
-		}
+		}*/
 	}
 }

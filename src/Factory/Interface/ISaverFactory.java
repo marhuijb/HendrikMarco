@@ -1,5 +1,7 @@
-package Factory.Interface
+package Factory.Interface;
+
+import Util.Implementation.AbstractSaver;
 
 public interface ISaverFactory{
-	public ISave createSaver();
+	public AbstractSaver createSaver();
 }

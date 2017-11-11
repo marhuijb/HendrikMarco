@@ -1,5 +1,7 @@
-package Factory.Interface
+package Factory.Interface;
+
+import Util.Implementation.*;
 
 public interface IReaderFactory{
-	public IReader createReader();
+	public AbstractReader createReader();
 }

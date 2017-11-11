@@ -1,10 +1,19 @@
-package Factory.Implementation
+package Factory.Implementation;
+
+import Factory.Interface.*;
+import Util.Implementation.*;
 
 /*
  * Factory class to create a reader.
  */
 public class ReaderFactory implements IReaderFactory{
-	public IReader createReader() {
-		return new Reader();
+	private FileFormatFactory fileFormatFactory;
+	
+	public ReaderFactory(FileFormatFactory fileFormatFactory) {
+		this.fileFormatFactory = fileFormatFactory;
+	}
+	
+	public AbstractReader createReader() {
+		return new Reader(new PresentationFactory(), fileFormatFactory);
 	}
 }
