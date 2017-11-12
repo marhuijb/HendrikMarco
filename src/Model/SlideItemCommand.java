@@ -3,14 +3,13 @@ package Model;
 import Controller.Command.*;
 import Controller.Interface.*;
 
-public class SlideCommand extends AbstractCommand{
+public class SlideItemCommand extends AbstractCommand{
 
-	protected SlideCommand(IPresentationController presentatieController,
+	protected SlideItemCommand(IPresentationController presentatieController,
 			IApplicationController applicationController) {
 		super(presentatieController, applicationController);		
 	}
 
-	
 	public void execute() {			
 	}
 }
