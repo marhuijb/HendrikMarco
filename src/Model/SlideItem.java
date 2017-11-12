@@ -14,14 +14,16 @@ import java.awt.image.ImageObserver;
  * @version 1.6 2014/05/16 Sylvia Stuurman
 */
 
-public abstract class SlideItem {
+public abstract class SlideItem{
+	private SlideCommand slideCommand;
+	
 	private int level = 0; // het level van het slideitem
 
 	private Rectangle boundingBox = null;
 	
 	protected boolean hoverStatus = false;
 	
-	public SlideItem(int lev) {
+	public SlideItem(int lev) {		
 		level = lev;
 	}
 
@@ -49,6 +51,19 @@ public abstract class SlideItem {
 
 	public Rectangle getBoundingBox() {
 		return this.boundingBox;
+	}
+	
+	public void setSlideCommand(SlideCommand slideCommand) {
+		this.slideCommand = slideCommand;
+	}
+	
+	/*
+	 * Execute the command which is connected to this item.
+	 */
+	public void execute() {
+		if (slideCommand != null) {
+			slideCommand.execute();
+		}
 	}
 	
 // Geef de bounding box

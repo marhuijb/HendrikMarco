@@ -21,7 +21,7 @@ public class Reader extends AbstractReader{
 	 * @param fileName The file is read and converted to a presentation  
 	 */
 	public Presentation readPresentation(String fileName) {
-		Presentation presentation = presentationFactory.createPresentation(); //TODO: weghalen?
+		Presentation presentation = presentationFactory.createPresentation(); //TODO: later weghalen
 		FileFormat fileFormat; 		
 		
 		if (fileName.length() == 0)
@@ -32,10 +32,15 @@ public class Reader extends AbstractReader{
 		}
 		else
 		{
-			//determine if file is V1 of V2 of the xml file
+			fileFormat = fileFormatFactory.GetFileFormat(fileName);
+			if (fileFormat != null) {
+				presentation = fileFormat.loadPresentation(fileName);
+			}
 		}
 		
 		return presentation; 
 	}
+	
+	
 	
 }

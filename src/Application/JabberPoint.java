@@ -1,16 +1,11 @@
 package Application;
 
-import javax.swing.JOptionPane;
 import Controller.Interface.*;
 import Factory.Implementation.*;
 import Factory.Interface.*;
-import Model.Accessor;
 import Model.Presentation;
 import Model.Style;
-import Model.XMLAccessor;
 import View.SlideViewerFrame;
-
-import java.io.IOException;
 
 /** JabberPoint Main Programma
  * <p>This program is distributed under the terms of the accompanying
