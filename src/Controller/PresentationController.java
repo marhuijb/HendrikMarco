@@ -34,8 +34,8 @@ public class PresentationController implements IPresentationController{
 	/*
 	 * Go to the last slide of the presentation.
 	 */
-	public void lastSlide() {
-		presentation.setSlideNumber(0);		
+	public void lastSlide() {		
+		presentation.setSlideNumber(presentation.getSize() - 1);		
 	}
 	
 	/*

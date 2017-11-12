@@ -1,5 +1,6 @@
 package Util.Implementation;
 
+import java.util.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class XMLFormatV2 extends FileFormat{
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
+    
+    protected static final int DEFAULT_LEVEL = 1;
     
     private ICommandFactory commandFactory;
     
@@ -114,25 +117,29 @@ public class XMLFormatV2 extends FileFormat{
 		String tagName = item.getTagName();
 		switch (tagName) {
 			case TEXT:
-				int textLevel = getLevel(item);
+				int textLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
 				TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());				
 				
 				if (decorator != null) {
 					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
-					//slideItemCommand
-					textItem.setSlideItemCommand(slideItemCommand);
+					decorator.setNextCommand(slideItemCommand);
+					textItem.setSlideItemCommand(decorator);
 				}
 				
 				slide.append(textItem);
 				break;
 			case IMAGE:
-				int imageLevel = getLevel(item);
+				int imageLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
 				BitmapItem bitmapItem = presentationFactory.createBitmapItem(imageLevel, item.getTextContent());
 				slide.append(bitmapItem);
 				break;
-			case ACTION:
-				String actionName = getName(item);
-				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(actionName);
+			case ACTION:								
+				HashMap<String, Object> attributes = new HashMap<String, Object>();
+				attributes.put(NAME, getAttribute(item, NAME));
+				attributes.put(FILENAME, getAttribute(item, FILENAME));
+				attributes.put(SLIDENUMBER, getIntAttribute(item, SLIDENUMBER, -1));
+				
+				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(attributes);
 											
 				if (decorator != null) {
 					decorator.setNextCommand(commandDecorator);
@@ -151,20 +158,6 @@ public class XMLFormatV2 extends FileFormat{
 				System.err.println(UNKNOWNTYPE);
 				break;
 		}
-		
-		/*
-		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
-		}
-		else {
-			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else {
-				System.err.println(UNKNOWNTYPE);
-			}
-		}*/
 	}
 	
 	/*
@@ -172,16 +165,20 @@ public class XMLFormatV2 extends FileFormat{
 	 * @param item Reads the level of this item.
 	 * @return The level
 	 */
-	private int getLevel(Element item) {
-		int level = 1; // default
+	private int getIntAttribute(Element item, String attribute, int defaultValue) {
+		int level = defaultValue; 
 		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-		if (leveltext != null) {
-			try {
-				level = Integer.parseInt(leveltext);
-			}
-			catch(NumberFormatException x) {
-				System.err.println(NFE);
+		Node node = attributes.getNamedItem(attribute);
+		
+		if (node != null) { 
+			String leveltext = node.getTextContent();
+			if (leveltext != null) {
+				try {
+					level = Integer.parseInt(leveltext);
+				}
+				catch(NumberFormatException x) {
+					System.err.println(NFE);
+				}
 			}
 		}
 		
@@ -189,18 +186,27 @@ public class XMLFormatV2 extends FileFormat{
 	}
 	
 	/*
-	 * Get the value of the name attribute
-	 * @param item Reads the name attribute of this item.
-	 * @return The name
+	 * Get the value of the attribute
+	 * @param item Reads the value of this attribute.
+	 * @return The value of the attribute
 	 */
-	private String getName(Element item) {		
+	private String getAttribute(Element item, String attribute) {		
 		NamedNodeMap attributes = item.getAttributes();
-		String name = attributes.getNamedItem(NAME).getTextContent();
-		return name;
+		Node node = attributes.getNamedItem(attribute);
+		
+		if (node != null) {
+			String name = attributes.getNamedItem(attribute).getTextContent();
+			return name;
+		}
+		
+		return null;
 	}	
 	
 	/*
-	 * Get the title
+	 * Get the title of the slide
+	 * @param element
+	 * @param tagName  
+	 * @return The title
 	 */
     private String getTitle(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);

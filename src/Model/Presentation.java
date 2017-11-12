@@ -47,6 +47,10 @@ public class Presentation {
 	public void setShowView(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 	}
+	
+	public void setShowView(Presentation presentation) {
+		this.slideViewComponent = presentation.slideViewComponent;
+	}
 
 	// repaint de slideViewComponent
 	public void rePaint() {

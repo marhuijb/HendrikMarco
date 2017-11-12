@@ -20,12 +20,9 @@ public class ApplicationController implements IApplicationController{
 	
 	protected static final String TESTFILE = "test.xml";		
 	
-	//protected static final String IOEX = "IO Exception: ";
-	//protected static final String LOADERR = "Load Error";
-	//protected static final String SAVEERR = "Save Error";
-	
 	/*
 	 * Open a new presentation
+	 * @param presentation Fill with the new presentation
 	 */
 	public void open(Presentation presentation) {
 		presentation.clear();
@@ -34,16 +31,27 @@ public class ApplicationController implements IApplicationController{
 			AbstractReader reader = readerFactory.createReader();
 			presentation = reader.readPresentation(TESTFILE);
 		}
-		/*
-		Accessor xmlAccessor = new XMLAccessor();
-		try {
-			xmlAccessor.loadFile(presentation, TESTFILE);
-			presentation.setSlideNumber(0);
-		} catch (IOException exc) {
-			JOptionPane.showMessageDialog(parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
-		}*/
 		parent.repaint();
 	}
+
+	/*
+	 * Open a new presentation
+	 * @param presentation Fill with the new presentation 
+	 * @param fileName Open this file as the new presentation
+	 */
+	public void open(Presentation presentation, String fileName) {
+		presentation.clear();
+		
+		if (readerFactory != null) {
+			AbstractReader reader = readerFactory.createReader();
+			Presentation newPresentation = reader.readPresentation(fileName);
+			newPresentation.setShowView(presentation);
+			newPresentation.setSlideNumber(0);
+			presentation = newPresentation;
+		}
+		parent.repaint();
+	}
+		
 	
 	public void save(Presentation presentation) {
 		if (saverFactory != null) {
@@ -55,14 +63,6 @@ public class ApplicationController implements IApplicationController{
 				e.printStackTrace();
 			}
 		}
-/*
-		Accessor xmlAccessor = new XMLAccessor();
-		try {
-			xmlAccessor.saveFile(presentation, SAVEFILE);
-		} catch (IOException exc) {
-			JOptionPane.showMessageDialog(parent, IOEX + exc, 
-					SAVEERR, JOptionPane.ERROR_MESSAGE);
-		}*/
 	}
 	
 	/*

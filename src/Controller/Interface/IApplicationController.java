@@ -9,6 +9,7 @@ import Model.*;
 
 public interface IApplicationController{
 	public void open(Presentation presentation);
+	public void open(Presentation presentation, String fileName);
 	public void save(Presentation presentation) throws IOException;	
 	public void createNew();
 	public void about();

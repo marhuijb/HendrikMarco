@@ -1,4 +1,6 @@
 package Factory.Implementation;
+
+import java.util.*;
 import Controller.Command.*;
 import Controller.Interface.*;
 import Factory.Interface.ICommandFactory;
@@ -7,10 +9,14 @@ import Factory.Interface.ICommandFactory;
  * Factory for creating command objects
  */
 public class CommandFactory implements ICommandFactory{
-	private static final String COMMAND_NOT_FOUND = "Command not found"; 
+	protected static final String COMMAND_NOT_FOUND = "Command not found"; 
+    
+	protected static final String NAME_ATTR = "name";
+	protected static final String SLIDENUMBER_ATTR = "slideNumber";
+    protected static final String FILENAME_ATTR = "fileName";
 	
-	private IPresentationController presentationController;
-	private IApplicationController applicationController;
+    protected IPresentationController presentationController;
+	protected IApplicationController applicationController;
 	
 	/* 
 	 * Constructor
@@ -62,6 +68,15 @@ public class CommandFactory implements ICommandFactory{
 	}	
 	
 	/*
+	 * Create GoTo Slide Command
+	 * @see Controller.Command.GotoSlideCommand
+	 * @param slideNumber Go to this slide number
+	 */
+	public AbstractCommand createGoToSlideCommand(int slideNumber) {
+		return new GoToSlideCommand(presentationController, slideNumber);
+	}	
+	
+	/*
 	 * Create Exit Command
 	 * @see Controller.Command.ExitCommand
 	 */
@@ -110,12 +125,23 @@ public class CommandFactory implements ICommandFactory{
 	}
 	
 	/*
+	 * Create the open presentation command
+	 * @see Controller.Command.OpenPresentationCommand
+	 * @param fileName
+	 */
+	public AbstractCommand createOpenPresentationCommand(String fileName) {
+		return new OpenPresentationCommand(presentationController, applicationController, fileName);
+	}
+	
+	/*
 	 * Create a command. The following command's are available: next, previous, first, last, open, go, beep
-	 * @param command The name of the command to be created
-	 * @throws 
+	 * @attributes A list with attributes for creating a command
+	 * @throws IllegalArgumentException If the command doesn't exist
 	 * @return The created command object
 	 */
-	public AbstractCommand createCommand(String command) {
+	public AbstractCommand createCommand(HashMap<String, Object> attributes) {
+		String command = (String)attributes.get(NAME_ATTR);
+		
 		switch(command) {
 			case "next":
 				return createNextSlideCommand();
@@ -126,9 +152,11 @@ public class CommandFactory implements ICommandFactory{
 			case "last":
 				return createLastSlideCommand();
 			case "open":
-				return createOpenPresentationCommand();
+				String fileName = (String)attributes.get(FILENAME_ATTR);
+				return createOpenPresentationCommand(fileName);
 			case "go":
-				return createGoToSlideCommand();
+				int slideNumber = (int)attributes.get(SLIDENUMBER_ATTR);
+				return createGoToSlideCommand(slideNumber);
 			case "beep":			
 				return createPlaySoundCommand();
 			default:

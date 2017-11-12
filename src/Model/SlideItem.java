@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
+import Controller.Command.AbstractCommand;
+
 /**
  * <p>
  * De abstracte klasse voor een item op een Slide
@@ -22,7 +24,7 @@ import java.awt.image.ImageObserver;
  */
 
 public abstract class SlideItem {
-	private SlideItemCommand slideItemCommand;
+	private AbstractCommand slideItemCommand;
 
 	private int level = 0; // het level van het slideitem
 
@@ -61,7 +63,7 @@ public abstract class SlideItem {
 		return this.boundingBox;
 	}
 
-	public void setSlideItemCommand(SlideItemCommand slideItemCommand) {
+	public void setSlideItemCommand(AbstractCommand slideItemCommand) {
 		this.slideItemCommand = slideItemCommand;
 	}
 
@@ -80,7 +82,7 @@ public abstract class SlideItem {
 	// teken het item
 	public abstract void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
 	
-	public SlideItemCommand getSlideItemCommand() {
+	public AbstractCommand getSlideItemCommand() {
 	 return this.slideItemCommand;
 	}
 	
