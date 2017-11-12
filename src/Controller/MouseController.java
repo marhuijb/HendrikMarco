@@ -30,8 +30,9 @@ public class MouseController extends MouseInputAdapter {
 
 				Rectangle rect = slideItem.getBoundingBox();
 
-				if (rect != null && rect.contains(x, y)) {
+				if (rect != null && rect.contains(x, y)) {					
 					System.out.println("Click in " + slideItem.toString()); // + ":" + rect.toString());
+					slideItem.execute();
 				}
 			}
 		} catch (NullPointerException e1) {

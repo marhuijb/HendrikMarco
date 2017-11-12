@@ -78,12 +78,16 @@ public class XMLFormatV2 extends FileFormat{
 				//Read the items of the slide
 				NodeList items = xmlSlide.getElementsByTagName(ITEMS);
 				Element xmlItems = (Element)items.item(0);
-				NodeList slideItems = xmlItems.getElementsByTagName("*");
+				NodeList slideItems = xmlItems.getElementsByTagName("*");				
+				
 				maxItems = slideItems.getLength();
 				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
 					//Read a item
 					Element item = (Element) slideItems.item(itemNumber);
-					loadSlideItem(slide, item, null);
+					String parentNode = item.getParentNode().getNodeName();
+					if (parentNode == ITEMS) {
+						loadSlideItem(slide, item, null);
+					}				
 				}
 			}
 		} 
@@ -104,15 +108,21 @@ public class XMLFormatV2 extends FileFormat{
 	 * Load a slide item (e.g. text, image or action)
 	 * @param slide The item will be added to this slide item
 	 * @param item XML element will be converterd into a slide item or an slide command
-	 * @param slideCommand The action which is coupled on a slide item. Can be null
+	 * @param decorator The action which is coupled on a slide item. Can be null
 	 */
-	private void loadSlideItem(Slide slide, Element item, SlideItemCommand slideCommand) {		
+	private void loadSlideItem(Slide slide, Element item, CommandDecorator decorator) {		
 		String tagName = item.getTagName();
 		switch (tagName) {
 			case TEXT:
 				int textLevel = getLevel(item);
-				TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());
-				textItem.setSlideItemCommand(slideCommand);
+				TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());				
+				
+				if (decorator != null) {
+					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
+					//slideItemCommand
+					textItem.setSlideItemCommand(slideItemCommand);
+				}
+				
 				slide.append(textItem);
 				break;
 			case IMAGE:
@@ -122,22 +132,19 @@ public class XMLFormatV2 extends FileFormat{
 				break;
 			case ACTION:
 				String actionName = getName(item);
-				AbstractCommand command = commandFactory.createCommand(actionName);
-				SlideItemCommand itemSlideCommand = presentationFactory.createSlideItemCommand();
-				
-				NodeList items = item.getElementsByTagName(ACTION);
-
-				if (slideCommand != null){
-					
-				}
-				
-				if (items.getLength() == 0){
-				   //No nested actions available
+				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(actionName);
+											
+				if (decorator != null) {
+					decorator.setNextCommand(commandDecorator);
 				}
 				else {
-					Element innerItem = (Element)items.item(0);					
-					loadSlideItem(slide, innerItem, itemSlideCommand);
+					decorator = commandDecorator;
 				}
+				
+				NodeList items = item.getElementsByTagName("*");
+			
+				Element innerItem = (Element)items.item(0);					
+				loadSlideItem(slide, innerItem, decorator);				
 											
 				break;
 			default:
