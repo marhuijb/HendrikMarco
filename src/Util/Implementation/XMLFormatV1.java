@@ -6,6 +6,7 @@ import Factory.Interface.*;
 import Model.*;
 
 public class XMLFormatV1 extends FileFormat{
+	protected static final String SAVEFILE = "dump.xml";
 
 	public XMLFormatV1(IPresentationFactory presentationFactory) {
 		super(presentationFactory);
@@ -28,5 +29,15 @@ public class XMLFormatV1 extends FileFormat{
 		}
 		
 		return presentation;
+	}
+	
+	public void savePresentation(Presentation presentation) {
+		XMLAccessor accessor = new XMLAccessor();
+		try {
+			accessor.saveFile(presentation, SAVEFILE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

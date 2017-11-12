@@ -1,5 +1,7 @@
 package Controller.Command;
 
+import java.io.IOException;
+
 import Controller.Interface.*;
 
 /**
@@ -16,7 +18,12 @@ public class SavePresentationCommand extends CommandDecorator{
 	
 	public void execute() {
 		if (applicationController != null && presentationController != null) {
-			applicationController.save(presentationController.getPresentation());				
+			try {
+				applicationController.save(presentationController.getPresentation());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}				
 		}
 		
 		super.execute();

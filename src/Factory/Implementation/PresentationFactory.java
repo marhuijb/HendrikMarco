@@ -13,13 +13,16 @@ public class PresentationFactory implements IPresentationFactory{
 		return new Slide();
 	}
 
-	public TextItem createTextItem() {
-		return new TextItem();
+	public TextItem createTextItem(int level, String text) {
+		return new TextItem(level, text);
 	}
 
-	//TODO: Bitmap 
-	public BitmapItem createBitmapItem() {
-		return new BitmapItem();
+	public BitmapItem createBitmapItem(int level, String name) {
+		return new BitmapItem(level, name);
 	}
 	
+	public SlideCommand createSlideCommand() {
+		return new SlideCommand(PresentationControllerFactory.getPresentationController(),
+				ApplicationControllerFactory.getApplicationController());
+	}
 }

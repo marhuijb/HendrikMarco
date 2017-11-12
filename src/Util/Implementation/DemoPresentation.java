@@ -19,11 +19,6 @@ public class DemoPresentation extends FileFormat {
 		super(presentationFactory); 
 	}
 
-	/*
-	 * Load the demo presentation
-	 * @param unusedFilename parameter isn't used
-	 * @return the presentation 
-	 */
 	private Presentation loadFile(String unusedFilename) {
 		Presentation presentation = presentationFactory.createPresentation();
 		presentation.setTitle("Demo Presentation");		
@@ -64,7 +59,19 @@ public class DemoPresentation extends FileFormat {
 		return presentation;
 	}
 	
+	/*
+	 * Load the demo presentation
+	 * @param unusedFilename parameter isn't used
+	 * @return the presentation 
+	 */	
 	public Presentation loadPresentation(String fileName) {		
 		return loadFile(fileName);
+	}
+
+	/*
+	 * Not implemented
+	 */
+	public void savePresentation(Presentation presentation) {
+		//No implementation		
 	}
 }

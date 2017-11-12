@@ -14,12 +14,14 @@ import org.xml.sax.SAXException;
  */
 public class FileFormatFactory{
 	private IPresentationFactory presentationFactory;
+	private ICommandFactory commandFactory;
 	
-	protected static final String V1 = "jabberpoint.dtd";
-	protected static final String V2 = "jabberPoint2.dtd";
+	public static final String V1 = "jabberpoint.dtd";
+	public static final String V2 = "jabberPoint2.dtd";
 	
-	public FileFormatFactory(IPresentationFactory presentationFactory) {
+	public FileFormatFactory(IPresentationFactory presentationFactory, ICommandFactory commandFactory) {
 		this.presentationFactory = presentationFactory;
+		this.commandFactory = commandFactory;
 	}
 		
 	/*
@@ -41,12 +43,19 @@ public class FileFormatFactory{
 			case V1:
 				return new XMLFormatV1(presentationFactory);				
 			case V2:
-				return new XMLFormatV2(presentationFactory);				
+				return GetFileFormatV2();				
 			default:
 				break;
 		}
 		
 		return null;
+	}
+	
+	/*
+	 * Get file format V2
+	 */
+	public FileFormat GetFileFormatV2() {
+		return new XMLFormatV2(presentationFactory, commandFactory);
 	}
 	
 	/*

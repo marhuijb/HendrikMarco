@@ -19,4 +19,6 @@ public interface ICommandFactory{
 	
 	public AbstractCommand createExitCommand();
 	public AbstractCommand createAboutCommand();
+	
+	public AbstractCommand createCommand(String command);
 }

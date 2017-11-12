@@ -44,6 +44,7 @@ public class Slide {
 	}
 
 	// Maak een TextItem van String, en voeg het TextItem toe
+	//TODO: moet een factory worden?
 	public void append(int level, String message) {
 		append(new TextItem(level, message));
 	}

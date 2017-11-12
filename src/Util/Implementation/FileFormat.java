@@ -11,4 +11,6 @@ public abstract class FileFormat{
 	}
 	
 	public abstract Presentation loadPresentation(String fileName);
+	
+	public abstract void savePresentation(Presentation presentation);
 }

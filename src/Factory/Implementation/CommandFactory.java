@@ -7,6 +7,8 @@ import Factory.Interface.ICommandFactory;
  * Factory for creating command objects
  */
 public class CommandFactory implements ICommandFactory{
+	private static final String COMMAND_NOT_FOUND = "Command not found"; 
+	
 	private IPresentationController presentationController;
 	private IApplicationController applicationController;
 	
@@ -105,5 +107,32 @@ public class CommandFactory implements ICommandFactory{
 	 */
 	public AbstractCommand createOpenPresentationCommand() {
 		return new OpenPresentationCommand(presentationController, applicationController);
+	}
+	
+	/*
+	 * Create a command. The following command's are available: next, previous, first, last, open, go, beep
+	 * @param command The name of the command to be created
+	 * @throws 
+	 * @return The created command object
+	 */
+	public AbstractCommand createCommand(String command) {
+		switch(command) {
+			case "next":
+				return createNextSlideCommand();
+			case "previous":
+				return createPreviousSlideCommand();
+			case "first":
+				return createFirstSlideCommand();
+			case "last":
+				return createLastSlideCommand();
+			case "open":
+				return createOpenPresentationCommand();
+			case "go":
+				return createGoToSlideCommand();
+			case "beep":			
+				return createPlaySoundCommand();
+			default:
+				throw new IllegalArgumentException(COMMAND_NOT_FOUND);				
+		}
 	}
 }
