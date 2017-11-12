@@ -106,13 +106,13 @@ public class XMLFormatV2 extends FileFormat{
 	 * @param item XML element will be converterd into a slide item or an slide command
 	 * @param slideCommand The action which is coupled on a slide item. Can be null
 	 */
-	private void loadSlideItem(Slide slide, Element item, SlideCommand slideCommand) {		
+	private void loadSlideItem(Slide slide, Element item, SlideItemCommand slideCommand) {		
 		String tagName = item.getTagName();
 		switch (tagName) {
 			case TEXT:
 				int textLevel = getLevel(item);
 				TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());
-				textItem.setSlideCommand(slideCommand);
+				textItem.setSlideItemCommand(slideCommand);
 				slide.append(textItem);
 				break;
 			case IMAGE:
@@ -123,7 +123,7 @@ public class XMLFormatV2 extends FileFormat{
 			case ACTION:
 				String actionName = getName(item);
 				AbstractCommand command = commandFactory.createCommand(actionName);
-				SlideCommand itemSlideCommand = presentationFactory.createSlideCommand();
+				SlideItemCommand itemSlideCommand = presentationFactory.createSlideItemCommand();
 				
 				NodeList items = item.getElementsByTagName(ACTION);
 

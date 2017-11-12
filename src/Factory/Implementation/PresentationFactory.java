@@ -21,8 +21,8 @@ public class PresentationFactory implements IPresentationFactory{
 		return new BitmapItem(level, name);
 	}
 	
-	public SlideCommand createSlideCommand() {
-		return new SlideCommand(PresentationControllerFactory.getPresentationController(),
+	public SlideItemCommand createSlideItemCommand() {
+		return new SlideItemCommand(PresentationControllerFactory.getPresentationController(),
 				ApplicationControllerFactory.getApplicationController());
-	}
+	}	
 }

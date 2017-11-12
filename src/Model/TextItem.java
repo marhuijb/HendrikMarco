@@ -54,7 +54,6 @@ public class TextItem extends SlideItem {
 		return text == null ? "" : text;
 	}
 
-
 	// geef de AttributedString voor het item
 	public AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(getText());
@@ -91,34 +90,46 @@ public class TextItem extends SlideItem {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		Point pen = new Point(x + (int) (myStyle.indent * scale), y + (int) (myStyle.leading * scale));
 
-		// System.out.println("text:" + text + ", pens:" + pen.toString());
+		// is er een actie op het item?
+		if (super.getSlideItemCommand() != null) {
+			int rectX = pen.x; // linksboven x
+			int rectY = pen.y; // linksboven y
 
-		int rectX = pen.x; // linksboven x
-		int rectY = pen.y; // linksboven y
+			int rectH = 0; // hoogte textItem
+			int rectW = 0; // breedte textItem
 
-		int rectH = 0; // hoogte textItem
-		int rectW = 0; // breedte textItem
+			Graphics2D g2d = (Graphics2D) g;
+			if (GetHoverStatus()) {
+				g2d.setColor(Color.RED);
+			} else {
+				g2d.setColor(myStyle.color);
+			}
 
-		Graphics2D g2d = (Graphics2D) g;
-		if (GetHoverStatus()) {
-			g2d.setColor(Color.RED);
+			TextLayout layout = layouts.get(0);
+			pen.y += layout.getAscent();
+			rectY += layout.getDescent();
+
+			layout.draw(g2d, pen.x, pen.y);
+			pen.y += layout.getDescent();
+
+			rectH += layout.getBounds().getHeight();
+			rectW += layout.getBounds().getWidth();
+
+			g.drawRect(rectX, rectY, rectW, rectH);
+			this.setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
+
 		} else {
+
+			Graphics2D g2d = (Graphics2D) g;
 			g2d.setColor(myStyle.color);
+
+			TextLayout layout = layouts.get(0);
+			pen.y += layout.getAscent();
+
+			layout.draw(g2d, pen.x, pen.y);
+			pen.y += layout.getDescent();
+
 		}
-
-		TextLayout layout = layouts.get(0);
-		pen.y += layout.getAscent();
-		rectY += layout.getDescent();
-
-		layout.draw(g2d, pen.x, pen.y);
-		pen.y += layout.getDescent();
-
-		rectH += layout.getBounds().getHeight();
-		rectW += layout.getBounds().getWidth();
-
-		g.drawRect(rectX, rectY, rectW, rectH);
-
-		this.setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
 
 	}
 

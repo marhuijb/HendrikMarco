@@ -70,19 +70,23 @@ public class BitmapItem extends SlideItem {
 		g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth(observer) * scale),
 				(int) (bufferedImage.getHeight(observer) * scale), observer);
 
-		int rectX = width;
-		int rectY = height;
-		int rectW = (int) (bufferedImage.getWidth(observer) * scale);
-		int rectH = (int) (bufferedImage.getHeight(observer) * scale);
+		// is er een actie op het item?
+		if (super.getSlideItemCommand() != null) {
 
-		if (GetHoverStatus()) {
-			g.setColor(Color.RED);
-		} else {
-			g.setColor(Color.BLUE);
+			int rectX = width;
+			int rectY = height;
+			int rectW = (int) (bufferedImage.getWidth(observer) * scale);
+			int rectH = (int) (bufferedImage.getHeight(observer) * scale);
+
+			if (GetHoverStatus()) {
+				g.setColor(Color.RED);
+			} else {
+				g.setColor(Color.BLUE);
+			}
+
+			g.drawRect(rectX, rectY, rectW, rectH);
+			setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
 		}
-
-		g.drawRect(rectX, rectY, rectW, rectH);
-		setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
 	}
 
 	public String toString() {
