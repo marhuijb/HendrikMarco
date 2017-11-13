@@ -15,7 +15,10 @@
 			<action name="go" slideNumber="4">
 				<text level="3">Go to slide 4</text>
 			</action>
-		</items>		
+			<action name="beep">
+				<image level="2">logo-woordmerk_ou.gif</image>
+			</action>
+		</items>
 	</slide>
 	<slide>
 		<title>Second slide</title>

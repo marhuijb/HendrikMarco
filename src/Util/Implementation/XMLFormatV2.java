@@ -103,7 +103,7 @@ public class XMLFormatV2 extends FileFormat{
 		catch (ParserConfigurationException pcx) {
 			System.err.println(PCE);
 		}
-		
+
 		return presentation;
 	}
 	
@@ -131,6 +131,13 @@ public class XMLFormatV2 extends FileFormat{
 			case IMAGE:
 				int imageLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
 				BitmapItem bitmapItem = presentationFactory.createBitmapItem(imageLevel, item.getTextContent());
+
+				if (decorator != null) {
+					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
+					decorator.setNextCommand(slideItemCommand);
+					bitmapItem.setSlideItemCommand(decorator);
+				}
+				
 				slide.append(bitmapItem);
 				break;
 			case ACTION:								
