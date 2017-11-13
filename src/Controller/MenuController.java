@@ -33,6 +33,8 @@ public class MenuController extends MenuBar {
 	protected static final String PREV = "Prev";
 	protected static final String SAVE = "Save";
 	protected static final String VIEW = "View";
+	protected static final String FIRST = "First";
+	protected static final String LAST = "Last";
 	
 	protected static final String TESTFILE = "test.xml";
 	protected static final String SAVEFILE = "dump.xml";
@@ -55,6 +57,8 @@ public class MenuController extends MenuBar {
 		Menu viewMenu = new Menu(VIEW);
 		viewMenu.add(createMenuItem(NEXT, commandFactory.createNextSlideCommand()));
 		viewMenu.add(createMenuItem(PREV, commandFactory.createPreviousSlideCommand()));		
+		viewMenu.add(createMenuItem(FIRST, commandFactory.createFirstSlideCommand()));
+		viewMenu.add(createMenuItem(LAST, commandFactory.createLastSlideCommand()));
 		viewMenu.add(createMenuItem(GOTO, commandFactory.createGoToSlideCommand()));
 		add(viewMenu);
 		
