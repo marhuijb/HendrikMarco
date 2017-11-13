@@ -43,7 +43,10 @@ public class KeyController extends KeyAdapter {
 
 	public void keyPressed(KeyEvent keyEvent) {
 
-		keys.get(keyEvent.getKeyCode()).execute();
-
+		AbstractCommand abstractCommand= keys.get(keyEvent.getKeyCode());
+		if (abstractCommand != null) {
+			abstractCommand.execute();
+		}
+		
 	}
 }
