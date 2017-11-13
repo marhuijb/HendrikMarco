@@ -89,7 +89,7 @@ public class XMLFormatV2 extends FileFormat{
 					Element item = (Element) slideItems.item(itemNumber);
 					String parentNode = item.getParentNode().getNodeName();
 					if (parentNode == ITEMS) {
-						loadSlideItem(slide, item, null);
+						loadSlideItem(slide, item, null, null);
 					}				
 				}
 			}
@@ -110,10 +110,11 @@ public class XMLFormatV2 extends FileFormat{
 	/*
 	 * Load a slide item (e.g. text, image or action)
 	 * @param slide The item will be added to this slide item
-	 * @param item XML element will be converterd into a slide item or an slide command
+	 * @param item XML element will be converted into a slide item or an slide command
 	 * @param decorator The action which is coupled on a slide item. Can be null
+	 * @param head The first action of the slide. Can be null
 	 */
-	private void loadSlideItem(Slide slide, Element item, CommandDecorator decorator) {		
+	private void loadSlideItem(Slide slide, Element item, CommandDecorator decorator, CommandDecorator head) {		
 		String tagName = item.getTagName();
 		switch (tagName) {
 			case TEXT:
@@ -123,7 +124,7 @@ public class XMLFormatV2 extends FileFormat{
 				if (decorator != null) {
 					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
 					decorator.setNextCommand(slideItemCommand);
-					textItem.setSlideItemCommand(decorator);
+					textItem.setSlideItemCommand(head);
 				}
 				
 				slide.append(textItem);
@@ -135,7 +136,7 @@ public class XMLFormatV2 extends FileFormat{
 				if (decorator != null) {
 					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
 					decorator.setNextCommand(slideItemCommand);
-					bitmapItem.setSlideItemCommand(decorator);
+					bitmapItem.setSlideItemCommand(head);
 				}
 				
 				slide.append(bitmapItem);
@@ -146,19 +147,21 @@ public class XMLFormatV2 extends FileFormat{
 				attributes.put(FILENAME, getAttribute(item, FILENAME));
 				attributes.put(SLIDENUMBER, getIntAttribute(item, SLIDENUMBER, -1));
 				
-				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(attributes);
+				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(attributes);				
 											
 				if (decorator != null) {
-					decorator.setNextCommand(commandDecorator);
+					decorator.setNextCommand(commandDecorator);					
 				}
 				else {
-					decorator = commandDecorator;
+					
+					head = commandDecorator;
 				}
 				
+				decorator = commandDecorator;
 				NodeList items = item.getElementsByTagName("*");
 			
 				Element innerItem = (Element)items.item(0);					
-				loadSlideItem(slide, innerItem, decorator);				
+				loadSlideItem(slide, innerItem, decorator, head);				
 											
 				break;
 			default:

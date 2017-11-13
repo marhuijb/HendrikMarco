@@ -36,6 +36,7 @@ public class PlaySoundCommand extends CommandDecorator{
 			clip.open(ain);
 			clip.start();
 		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 }
