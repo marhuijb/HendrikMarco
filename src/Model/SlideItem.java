@@ -28,7 +28,7 @@ public abstract class SlideItem {
 
 	private int level = 0; // het level van het slideitem
 
-	private Rectangle boundingBox = null;
+	private Rectangle hyperlinkBox = null;
 
 	protected boolean hoverStatus = false;
 
@@ -55,12 +55,12 @@ public abstract class SlideItem {
 		return hoverStatus;
 	}
 
-	public void setBoundingBox(Rectangle boundingBox) {
-		this.boundingBox = boundingBox;
+	public void setHyperlinkBox(Rectangle hyperlinkBox) {
+		this.hyperlinkBox = hyperlinkBox;
 	}
 
-	public Rectangle getBoundingBox() {
-		return this.boundingBox;
+	public Rectangle getHyperlinkBox() {
+		return this.hyperlinkBox;
 	}
 
 	public void setSlideItemCommand(AbstractCommand slideItemCommand) {

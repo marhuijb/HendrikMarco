@@ -85,7 +85,7 @@ public class BitmapItem extends SlideItem {
 			}
 
 			g.drawRect(rectX, rectY, rectW, rectH);
-			setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
+			setHyperlinkBox(new Rectangle(rectX, rectY, rectW, rectH));
 		}
 	}
 

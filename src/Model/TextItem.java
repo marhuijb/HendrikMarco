@@ -116,7 +116,7 @@ public class TextItem extends SlideItem {
 			rectW += layout.getBounds().getWidth();
 
 			g.drawRect(rectX, rectY, rectW, rectH);
-			this.setBoundingBox(new Rectangle(rectX, rectY, rectW, rectH));
+			setHyperlinkBox(new Rectangle(rectX, rectY, rectW, rectH));
 
 		} else {
 

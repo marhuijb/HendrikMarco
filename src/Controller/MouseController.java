@@ -28,7 +28,7 @@ public class MouseController extends MouseInputAdapter {
 
 			for (SlideItem slideItem : slideItems) {
 
-				Rectangle rect = slideItem.getBoundingBox();
+				Rectangle rect = slideItem.getHyperlinkBox();
 
 				if (rect != null && rect.contains(x, y)) {					
 					System.out.println("Click in " + slideItem.toString()); // + ":" + rect.toString());
@@ -48,7 +48,7 @@ public class MouseController extends MouseInputAdapter {
 
 			for (SlideItem slideItem : slideItems) {
 
-				Rectangle rect = slideItem.getBoundingBox();
+				Rectangle rect = slideItem.getHyperlinkBox();
 
 				if (rect != null && rect.contains(x, y)) {
 					// en dus niet
