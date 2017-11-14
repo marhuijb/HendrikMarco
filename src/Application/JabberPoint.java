@@ -29,7 +29,7 @@ public class JabberPoint {
 	/** Het Main Programma */
 	public static void main(String argv[]) {
 					
-		Style.createStyles();
+		StyleFactory.createStyleFactory();
 				
 		IApplicationController applicationController = ApplicationControllerFactory.getApplicationController();		
 		IPresentationController presentationController = PresentationControllerFactory.getPresentationController();

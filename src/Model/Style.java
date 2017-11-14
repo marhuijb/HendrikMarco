@@ -15,45 +15,96 @@ import java.awt.Font;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class Style {
-	private static Style[] styles; // de styles
+public class Style {	
+
+	private final String fontName;
+	private final int fontStyle;
+	private final int fontSize;
+	private final Color fontColor;
+
+	private final int indent;
+	private final int leading;
+
+	private Style(Builder builder) {
+		this.fontName = builder.fontName;
+		this.fontStyle = builder.fontStyle;
+		this.fontSize = builder.fontSize;
+		this.fontColor = builder.fontColor;
+
+		this.indent = builder.indent;
+		this.leading = builder.leading;
+	}
+
+	public String getFontName() {
+		return fontName;
+	}
+
+	public int getFontStyle() {
+		return fontStyle;
+	}
+
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	public Color getFontColor() {
+		return fontColor;
+	}
+
+	public int getIndent() {
+		return indent;
+	}
+
+	public int getLeading() {
+		return leading;
+	}
 	
-	private static final String FONTNAME = "Helvetica";
-	int indent;
-	Color color;
-	Font font;
-	int fontSize;
-	int leading;
+	public static class Builder {
+		private String fontName;
+		private int fontStyle;
+		private int fontSize;
+		private Color fontColor;
 
-	public static void createStyles() {
-		styles = new Style[5];    
-		// De styles zijn vast ingecodeerd.
-		styles[0] = new Style(0, Color.red,   48, 20);	// style voor item-level 0
-		styles[1] = new Style(20, Color.blue,  40, 10);	// style voor item-level 1
-		styles[2] = new Style(50, Color.black, 36, 10);	// style voor item-level 2
-		styles[3] = new Style(70, Color.black, 30, 10);	// style voor item-level 3
-		styles[4] = new Style(90, Color.black, 24, 10);	// style voor item-level 4
-	}
+		private int indent;
+		private int leading;
 
-	public static Style getStyle(int level) {
-		if (level >= styles.length) {
-			level = styles.length - 1;
+		public Builder fontName (final String fontName) {
+			this.fontName = fontName;
+			return this;
 		}
-		return styles[level];
-	}
+		public Builder fontStyle (final int fontStyle) {
+			this.fontStyle = fontStyle;
+			return this;
+		}
+		public Builder fontSize (final int fontSize) {
+			this.fontSize = fontSize;
+			return this;
+		}
+		public Builder fontColor (final Color fontColor) {
+			this.fontColor = fontColor;
+			return this;
+		}
+		
+		public Builder indent (final int indent) {
+			this.indent = indent;
+			return this;
+		}
+		public Builder leading (final int leading) {
+			this.leading = leading;
+			return this;
+		}
 
-	public Style(int indent, Color color, int points, int leading) {
-		this.indent = indent;
-		this.color = color;
-		font = new Font(FONTNAME, Font.BOLD, fontSize=points);
-		this.leading = leading;
-	}
-
+		public Style build() {
+			return new Style(this);
+		}		
+	}	
+	
 	public String toString() {
-		return "["+ indent + "," + color + "; " + fontSize + " on " + leading +"]";
+		return "["+ indent + "," + fontColor + "; " + fontSize + " on " + leading +"]";
 	}
 
 	public Font getFont(float scale) {
-		return font.deriveFont(fontSize * scale);
+		return new Font(this.fontName, this.fontStyle, this.fontSize).deriveFont(fontSize * scale);
 	}
+
 }

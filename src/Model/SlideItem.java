@@ -46,12 +46,12 @@ public abstract class SlideItem {
 	}
 
 	// Verander HoverStatus
-	public void SetHoverStatus(boolean inside) {
+	public void setHoverStatus(boolean inside) {
 		hoverStatus = inside;
 	}
 
 	// Koppel HoverStatus status terug
-	public boolean GetHoverStatus() {
+	public boolean getHoverStatus() {
 		return hoverStatus;
 	}
 
