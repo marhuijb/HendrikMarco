@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE presentation SYSTEM "jabberPoint2.dtd">
 <presentation>
-	<showtitle>XML-Based Presentation for Jabberpoint Version 2</showtitle>
+	<showtitle>Presentation 2</showtitle>
 	<slide>
-		<title>JabberPoint XML-Demo</title>
+		<title>JabberPoint XML-Demo 2</title>
 		<items>		
 			<text level="1">Welkom bij Jabberpoint</text>		
 			<text level="2">Copyright (c) 1996-2000 Ian Darwin</text>

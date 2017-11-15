@@ -2,8 +2,6 @@ package Controller;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
-
 import Controller.Interface.*;
 import Factory.Interface.*;
 import Model.*;
@@ -14,11 +12,14 @@ import View.*;
  * Controller class for the JabberPoint application.
  */
 public class ApplicationController implements IApplicationController{
-	private JFrame parent;
+	private SlideViewerFrame parent;
 	private IReaderFactory readerFactory;
 	private ISaverFactory saverFactory;
+	private ICommandFactory commandFactory;
+	private IPresentationController presentationController;
 	
-	protected static final String TESTFILE = "test.xml";		
+	protected static final String TESTFILE = "test.xml";
+	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 	
 	/*
 	 * Open a new presentation
@@ -37,9 +38,13 @@ public class ApplicationController implements IApplicationController{
 	/*
 	 * Open a new presentation
 	 * @param presentation Fill with the new presentation 
-	 * @param fileName Open this file as the new presentation
+	 * @param fileName Open this file as the new presentation. 
 	 */
 	public void open(Presentation presentation, String fileName) {
+		if (fileName == "") {
+			fileName = TESTFILE;
+		}
+		/*
 		presentation.clear();
 		
 		if (readerFactory != null) {
@@ -49,10 +54,29 @@ public class ApplicationController implements IApplicationController{
 			newPresentation.setSlideNumber(0);
 			presentation = newPresentation;
 		}
+		*/
+		
+		AbstractReader reader = readerFactory.createReader();
+		Presentation newPresentation = reader.readPresentation(fileName);
+		presentationController.setPresentation(newPresentation);			
+
+		if (parent == null){
+			SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, newPresentation, commandFactory);
+			parent = frame;
+		}
+		else{
+
+			parent.setupWindow(newPresentation);
+		}
+		newPresentation.setSlideNumber(0); //TODO: op een andere plek? Nu wordt hij pas getekend.
+		
 		parent.repaint();
 	}
 		
-	
+	/*
+	 * Save the presentation to a file.
+	 * @param The presentation to be saved.
+	 */
 	public void save(Presentation presentation) {
 		if (saverFactory != null) {
 			AbstractSaver saver = saverFactory.createSaver();
@@ -74,6 +98,9 @@ public class ApplicationController implements IApplicationController{
 		}
 	}
 	
+	/*
+	 * Show the application's about form 
+	 */
 	public void about() {
 		if (parent != null) {
 			AboutBox.show(parent);
@@ -83,7 +110,7 @@ public class ApplicationController implements IApplicationController{
 	/*
 	 * Set the frame 
 	 */
-	public void setFrame(JFrame frame){
+	public void setFrame(SlideViewerFrame frame){
 		this.parent = frame;
 	}
 	
@@ -95,4 +122,11 @@ public class ApplicationController implements IApplicationController{
 		this.saverFactory = saverFactory;
 	}
 
+	public void setCommandFactory(ICommandFactory commandFactory) {
+		this.commandFactory = commandFactory;	
+	}
+	
+	public void setPresentationController(IPresentationController presentationController) {
+		this.presentationController = presentationController;
+	}
 }

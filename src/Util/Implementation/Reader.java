@@ -21,7 +21,7 @@ public class Reader extends AbstractReader{
 		Presentation presentation = presentationFactory.createPresentation(); //TODO: later weghalen
 		FileFormat fileFormat; 		
 		
-		if (fileName.length() == 0)
+		if (fileName == null || fileName.length() == 0)
 		{
 			//Read the demo presentation
 			fileFormat = fileFormatFactory.createDemoPresentation();

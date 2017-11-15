@@ -22,28 +22,30 @@ import Model.Presentation;
 
 public class SlideViewerFrame extends JFrame {
 	private static final long serialVersionUID = 3227L;
-	
-	private static final String JABTITLE = "Jabberpoint 1.7 - HVH";
+	private SlideViewerComponent slideViewerComponent;
+	private ICommandFactory commandFactory;
+		
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	
 	public SlideViewerFrame(String title, Presentation presentation, ICommandFactory commandFactory) {
 		super(title);
-		SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
-		presentation.setShowView(slideViewerComponent);
-		setupWindow(slideViewerComponent, presentation, commandFactory);
+		this.commandFactory = commandFactory;		
+		setupWindow(presentation);
 	}
 
 // De GUI opzetten
-	public void setupWindow(SlideViewerComponent 
-			slideViewerComponent, Presentation presentation, ICommandFactory commandFactory) {
-		setTitle(JABTITLE);
+	public void setupWindow(Presentation presentation) {
+		getContentPane().removeAll();
+		this.slideViewerComponent = new SlideViewerComponent(presentation, this); 
+		presentation.setShowView(slideViewerComponent);
+		setTitle(presentation.getTitle());
 		addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
 					System.exit(0);
 				}
 			});
-		getContentPane().add(slideViewerComponent);
+		getContentPane().add(this.slideViewerComponent);
 				
 		addKeyListener(new KeyController(commandFactory)); // een controller toevoegen
 		setMenuBar(new MenuController(commandFactory));	// nog een controller toevoegen
@@ -52,5 +54,5 @@ public class SlideViewerFrame extends JFrame {
 		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
-	}
+	}		
 }

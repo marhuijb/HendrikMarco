@@ -40,27 +40,11 @@ public class JabberPoint {
 		ISaverFactory saverFactory = new SaverFactory(fileFormatFactory);
 		applicationController.setReaderFactory(readerFactory);
 		applicationController.setSaverFactory(saverFactory);
+		applicationController.setCommandFactory(commandFactory);
+		applicationController.setPresentationController(presentationController);
 		
 		//Read a presentation
-		Presentation presentation = readerFactory.createReader().readPresentation(argv.length == 0 ? "" : argv[0]);			
-		presentationController.setPresentation(presentation);			
-		
-		SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, presentation, commandFactory);
-		applicationController.setFrame(frame);
-		presentation.setSlideNumber(0); //TODO: op een andere plek? Nu wordt hij pas getekend.
-		
-		/*
-		try {
-			if (argv.length == 0) { // een demo presentatie
-				Accessor.getDemoAccessor().loadFile(presentation, "");
-			} else {
-				new XMLAccessor().loadFile(presentation, argv[0]);
-			}
-			presentation.setSlideNumber(0);
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null,
-					IOERR + ex, JABERR,
-					JOptionPane.ERROR_MESSAGE);
-		}*/
+		applicationController.open(null, argv.length == 0 ? "" : argv[0]);
+
 	}
 }
