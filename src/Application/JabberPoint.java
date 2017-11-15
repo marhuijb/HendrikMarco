@@ -4,7 +4,6 @@ import Controller.Interface.*;
 import Factory.Implementation.*;
 import Factory.Interface.*;
 import Model.Presentation;
-import Model.Style;
 import View.SlideViewerFrame;
 
 /** JabberPoint Main Programma
@@ -29,7 +28,7 @@ public class JabberPoint {
 	/** Het Main Programma */
 	public static void main(String argv[]) {
 					
-		Style.createStyles();
+		StyleFactory.createStyleFactory();
 				
 		IApplicationController applicationController = ApplicationControllerFactory.getApplicationController();		
 		IPresentationController presentationController = PresentationControllerFactory.getPresentationController();

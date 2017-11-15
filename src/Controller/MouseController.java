@@ -55,14 +55,14 @@ public class MouseController extends MouseInputAdapter {
 					// slideItem.SetHoverStatus(!slideItem.GetHoverStatus())
 					// want dan gaan we voortdurend wijzigen van status!
 
-					if (!slideItem.GetHoverStatus()) {
-						slideItem.SetHoverStatus(true);
+					if (!slideItem.getHoverStatus()) {
+						slideItem.setHoverStatus(true);
 						// System.out.println("Hover!");
 						presentation.rePaint();
 					}
 				} else {
-					if (slideItem.GetHoverStatus()) {
-						slideItem.SetHoverStatus(false);
+					if (slideItem.getHoverStatus()) {
+						slideItem.setHoverStatus(false);
 						// System.out.println("not so much Hover!");
 						presentation.rePaint();
 					}

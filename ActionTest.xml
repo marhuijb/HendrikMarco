@@ -45,6 +45,9 @@
 		<title>Fourth slide</title>
 		<items>
 			<text level="1">Fourth slide</text>
+			<action name="first">
+				<text level="3">Go to first slide</text>
+			</action>
 		</items>
 	</slide>
 	<slide>
