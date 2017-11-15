@@ -24,4 +24,5 @@ public interface ICommandFactory{
 	public AbstractCommand createAboutCommand();
 	
 	public AbstractCommand createCommand(HashMap<String, Object> attributes);
+	public String getCommandName(AbstractCommand command);
 }

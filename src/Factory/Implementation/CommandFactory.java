@@ -14,6 +14,13 @@ public class CommandFactory implements ICommandFactory{
 	protected static final String NAME_ATTR = "name";
 	protected static final String SLIDENUMBER_ATTR = "slideNumber";
     protected static final String FILENAME_ATTR = "fileName";
+    protected static final String NEXT = "next";
+    protected static final String PREVIOUS = "previous";
+    protected static final String FIRST = "first";
+    protected static final String LAST = "last";
+    protected static final String GO = "go";
+    protected static final String OPEN = "open";
+    protected static final String BEEP = "beep";
 	
     protected IPresentationController presentationController;
 	protected IApplicationController applicationController;
@@ -143,24 +150,43 @@ public class CommandFactory implements ICommandFactory{
 		String command = (String)attributes.get(NAME_ATTR);
 		
 		switch(command) {
-			case "next":
+			case NEXT:
 				return createNextSlideCommand();
-			case "previous":
+			case PREVIOUS:
 				return createPreviousSlideCommand();
-			case "first":
+			case FIRST:
 				return createFirstSlideCommand();
-			case "last":
+			case LAST:
 				return createLastSlideCommand();
-			case "open":
+			case OPEN:
 				String fileName = (String)attributes.get(FILENAME_ATTR);
 				return createOpenPresentationCommand(fileName);
-			case "go":
+			case GO:
 				int slideNumber = (int)attributes.get(SLIDENUMBER_ATTR);
 				return createGoToSlideCommand(slideNumber);
-			case "beep":			
+			case BEEP:			
 				return createPlaySoundCommand();
 			default:
 				throw new IllegalArgumentException(COMMAND_NOT_FOUND);				
 		}
 	}
+	
+	/*
+	 * Give the name of the command
+	 * @param command The name of this command is returned
+	 * @return The name of the command
+	 * @throws IllegalArgumentException If the command doesn't exist
+	 */
+	public String getCommandName(AbstractCommand command) {
+		if (command instanceof NextSlideCommand) return NEXT;
+		if (command instanceof PreviousSlideCommand) return PREVIOUS;
+		if (command instanceof FirstSlideCommand) return FIRST;
+		if (command instanceof LastSlideCommand) return LAST;
+		if (command instanceof OpenPresentationCommand) return OPEN;
+		if (command instanceof GoToSlideCommand) return GO;
+		if (command instanceof PlaySoundCommand) return BEEP;
+		
+		throw new IllegalArgumentException(COMMAND_NOT_FOUND);
+	}
+	
 }

@@ -35,4 +35,8 @@ public class OpenPresentationCommand extends CommandDecorator{
 		
 		super.execute();
 	}
+	
+	public String getFileName() {
+		return fileName;
+	}
 }

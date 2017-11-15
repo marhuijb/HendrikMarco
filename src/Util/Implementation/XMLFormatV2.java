@@ -59,7 +59,7 @@ public class XMLFormatV2 extends FileFormat{
 		int slideNumber, itemNumber, max = 0, maxItems = 0;
 		
 		try {
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    			
 			Document document = builder.parse(new File(fileName)); // maak een JDOM document
 			Element doc = document.getDocumentElement();
 			
@@ -104,6 +104,7 @@ public class XMLFormatV2 extends FileFormat{
 			System.err.println(PCE);
 		}
 
+	
 		return presentation;
 	}
 	
@@ -271,44 +272,119 @@ public class XMLFormatV2 extends FileFormat{
 			out.println("<?xml version=\"1.0\"?>");
 			out.println("<!DOCTYPE presentation SYSTEM \"jabberPoint2.dtd\">");
 			out.println("<presentation>");
-			out.print("<showtitle>");
-			out.print(presentation.getTitle());
-			out.println("</showtitle>");
+			
+			printTitle(presentation, out, 1);
+			
 			for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
 				Slide slide = presentation.getSlide(slideNumber);
-				out.println("<slide>");
-				out.println("<title>" + slide.getTitle() + "</title>");
+				out.println(addIdent(1) + "<slide>");
+				out.println(addIdent(2) + "<title>" + slide.getTitle() + "</title>");
 				
-				out.println("<items>");
+				out.println(addIdent(2) + "<items>");
 				Vector<SlideItem> slideItems = slide.getSlideItems();
+				int ident;
 				for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
+					ident = 3;
 					SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);					
-										
-					if (slideItem instanceof TextItem) {
-						out.print("<text level=\"" + slideItem.getLevel() + "\">");
-						out.print( ( (TextItem) slideItem).getText());
-						out.print("</text>");
+						
+					CommandDecorator command = (CommandDecorator)slideItem.getSlideItemCommand();									
+					
+					if (command != null){						
+						printStartActionElement(out, ident, command);						
+						printElement(command, out, ident+1, slideItem);						
+						
+						out.println(addIdent(ident) + "</action>");
 					}
 					else {
-						if (slideItem instanceof BitmapItem) {
-							out.print("<image level=\"" + slideItem.getLevel() + "\">");
-							out.print( ( (BitmapItem) slideItem).getName());
-							out.print("</image>");
-						}
-						else {
-							System.out.println("Ignoring " + slideItem);
-						}
-					}
+						printSlideItem(slideItem, out, ident);
+					}					
 										
 				}
-				out.println("</items>");
-				out.println("</slide>");
+				out.println(addIdent(2) + "</items>");
+				out.println(addIdent(1) + "</slide>");
 			}
 			out.println("</presentation>");
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/*
+	 * Print the start action element <action ... >
+	 */
+	private void printStartActionElement(PrintWriter out, int ident, AbstractCommand command) {
+		String attributes = getAttributes(command);
+		out.println(addIdent(ident) + "<action " + attributes + ">");
+	}
+
+	/*
+	 * Gets the attributes as a string for a action, e.g. name="open" attr2="..." 
+	 * @param command Create the attributes string for this command
+	 * @return the attribute string
+	 */
+	private String getAttributes(AbstractCommand command) {
+		String attributes = "name=\"" + commandFactory.getCommandName(command) + "\"";
+		
+		if (command instanceof GoToSlideCommand) {
+			GoToSlideCommand goToSlideCommand = (GoToSlideCommand)command;
+			attributes = attributes + " slideNumber=\"" + goToSlideCommand.getSlideNumber() + "\"";
+		}
+		else if (command instanceof OpenPresentationCommand) {
+			OpenPresentationCommand openPresentationCommand = (OpenPresentationCommand)command;
+			attributes = attributes + " fileName=\"" + openPresentationCommand.getFileName() + "\"";
+		}
+		
+		return attributes;
+	}
+	
+	/*
+	 * Print a slide item
+	 * @param slideItem The slide item to be printed.
+	 * @param out 
+	 * @param indent The ident level
+	 */
+	private void printSlideItem(SlideItem slideItem, PrintWriter out, int ident) {
+		if (slideItem instanceof TextItem) {
+			out.print(addIdent(ident) + "<text level=\"" + slideItem.getLevel() + "\">");
+			out.print( ( (TextItem) slideItem).getText());
+			out.println("</text>");
+		}
+		else {
+			if (slideItem instanceof BitmapItem) {
+				out.print(addIdent(ident) + "<image level=\"" + slideItem.getLevel() + "\">");
+				out.print( ( (BitmapItem) slideItem).getName());
+				out.println("</image>");
+			}
+			else {
+				System.out.println("Ignoring " + slideItem);
+			}
+		}
+	}
+
+	private void printElement(CommandDecorator command, PrintWriter out, int ident, SlideItem slideItem) {
+		AbstractCommand nextCommand = command != null ? command.getNextCommand() : null;
+		if (nextCommand instanceof CommandDecorator) {		
+			printStartActionElement(out, ident, nextCommand);	
+			printElement((CommandDecorator)nextCommand, out, ident+1, slideItem);
+			out.println(addIdent(ident) + "</action>");
+		}
+		else {
+			printSlideItem(slideItem, out, ident);
+		}		
+	}
+
+	private void printTitle(Presentation presentation, PrintWriter out, int ident) {
+		out.print(addIdent(ident) + "<showtitle>");
+		out.print(presentation.getTitle());
+		out.println("</showtitle>");
+	}
+
+	private String addIdent(int ident) {
+		String str = "";
+		for(int i=0;i<ident;i++)
+			str += "\t";
+		
+		return str;
 	}
 }

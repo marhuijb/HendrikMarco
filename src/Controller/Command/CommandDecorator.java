@@ -27,9 +27,17 @@ public abstract class CommandDecorator extends AbstractCommand{
 	
 	/*
 	 * Set the command which has to be executed after the current command.
-	 * @param command The nex command
+	 * @param command The next command
 	 */
 	public void setNextCommand(AbstractCommand command) {
 		this.nextCommand = command;
+	}
+	
+	/*
+	 * Get the next command.
+	 * @return The next command, null if not available.
+	 */
+	public AbstractCommand getNextCommand() {
+		return nextCommand;
 	}
 }

@@ -42,4 +42,8 @@ public class GoToSlideCommand extends CommandDecorator{
 		
 		super.execute();
 	}
+	
+	public int getSlideNumber() {
+		return slideNumber;
+	}
 }
