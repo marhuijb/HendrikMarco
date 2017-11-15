@@ -4,7 +4,6 @@ import Controller.Interface.*;
 import Factory.Implementation.*;
 import Factory.Interface.*;
 import Model.Presentation;
-import Model.Style;
 import View.SlideViewerFrame;
 
 /** JabberPoint Main Programma
