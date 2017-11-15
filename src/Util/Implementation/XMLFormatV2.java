@@ -118,36 +118,13 @@ public class XMLFormatV2 extends FileFormat{
 		String tagName = item.getTagName();
 		switch (tagName) {
 			case TEXT:
-				int textLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
-				TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());				
-				
-				if (decorator != null) {
-					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
-					decorator.setNextCommand(slideItemCommand);
-					textItem.setSlideItemCommand(head);
-				}
-				
-				slide.append(textItem);
+				slide.append(handleTextElement(item, decorator, head));
 				break;
 			case IMAGE:
-				int imageLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
-				BitmapItem bitmapItem = presentationFactory.createBitmapItem(imageLevel, item.getTextContent());
-
-				if (decorator != null) {
-					SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
-					decorator.setNextCommand(slideItemCommand);
-					bitmapItem.setSlideItemCommand(head);
-				}
-				
-				slide.append(bitmapItem);
+				slide.append(handleImageItem(item, decorator, head));
 				break;
 			case ACTION:								
-				HashMap<String, Object> attributes = new HashMap<String, Object>();
-				attributes.put(NAME, getAttribute(item, NAME));
-				attributes.put(FILENAME, getAttribute(item, FILENAME));
-				attributes.put(SLIDENUMBER, getIntAttribute(item, SLIDENUMBER, -1));
-				
-				CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(attributes);				
+				CommandDecorator commandDecorator = createCommand(item);				
 											
 				if (decorator != null) {
 					decorator.setNextCommand(commandDecorator);					
@@ -160,7 +137,7 @@ public class XMLFormatV2 extends FileFormat{
 				decorator = commandDecorator;
 				NodeList items = item.getElementsByTagName("*");
 			
-				Element innerItem = (Element)items.item(0);					
+				Element innerItem = (Element)items.item(0); 					
 				loadSlideItem(slide, innerItem, decorator, head);				
 											
 				break;
@@ -168,6 +145,65 @@ public class XMLFormatV2 extends FileFormat{
 				System.err.println(UNKNOWNTYPE);
 				break;
 		}
+	}
+
+	/*
+	 * Create a new command depending on the item.
+	 * @param item Contains information which command has to be created.
+	 * @return The created command
+	 */
+	private CommandDecorator createCommand(Element item) {
+		HashMap<String, Object> attributes = new HashMap<String, Object>();
+		attributes.put(NAME, getAttribute(item, NAME));
+		attributes.put(FILENAME, getAttribute(item, FILENAME));
+		attributes.put(SLIDENUMBER, getIntAttribute(item, SLIDENUMBER, -1));
+		
+		CommandDecorator commandDecorator = (CommandDecorator)commandFactory.createCommand(attributes);
+		return commandDecorator;
+	}
+
+	/*
+	 * Handle a image element.
+	 * @param item the item to be handled
+	 * @param decorator current position of the decorator chain. 
+	 * @param head The head of the decorator chain 
+	 * @return a TextItem object
+	 */
+	private BitmapItem handleImageItem(Element item, CommandDecorator decorator, CommandDecorator head) {
+		int imageLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
+		BitmapItem bitmapItem = presentationFactory.createBitmapItem(imageLevel, item.getTextContent());
+
+		addDecorator(decorator, head, bitmapItem);
+		return bitmapItem;
+	}
+
+	/*
+	 * Add a decorator element to the slide item 
+	 * @param decorator If not not null  Can be null
+	 * @param head The first command of the decorator chain
+	 * @param slideItem The decorator is added to this slide item
+	 */
+	private void addDecorator(CommandDecorator decorator, CommandDecorator head, SlideItem slideItem) {
+		if (decorator != null) {
+			SlideItemCommand slideItemCommand = presentationFactory.createSlideItemCommand();
+			decorator.setNextCommand(slideItemCommand);
+			slideItem.setSlideItemCommand(head);
+		}
+	}
+
+	/*
+	 * Handle a TextItem element.
+	 * @param item the item to be handled
+	 * @param decorator current position of the decorator chain. 
+	 * @param head The head of the decorator chain 
+	 * @return a TextItem object
+	 */
+	private TextItem handleTextElement(Element item, CommandDecorator decorator, CommandDecorator head) {
+		int textLevel = getIntAttribute(item, LEVEL, DEFAULT_LEVEL);
+		TextItem textItem = presentationFactory.createTextItem(textLevel, item.getTextContent());				
+		
+		addDecorator(decorator, head, textItem);
+		return textItem;
 	}
 	
 	/*

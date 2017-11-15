@@ -44,17 +44,6 @@ public class ApplicationController implements IApplicationController{
 		if (fileName == "") {
 			fileName = TESTFILE;
 		}
-		/*
-		presentation.clear();
-		
-		if (readerFactory != null) {
-			AbstractReader reader = readerFactory.createReader();
-			Presentation newPresentation = reader.readPresentation(fileName);
-			newPresentation.setShowView(presentation);
-			newPresentation.setSlideNumber(0);
-			presentation = newPresentation;
-		}
-		*/
 		
 		AbstractReader reader = readerFactory.createReader();
 		Presentation newPresentation = reader.readPresentation(fileName);
@@ -68,7 +57,7 @@ public class ApplicationController implements IApplicationController{
 
 			parent.setupWindow(newPresentation);
 		}
-		newPresentation.setSlideNumber(0); //TODO: op een andere plek? Nu wordt hij pas getekend.
+		newPresentation.setSlideNumber(0);
 		
 		parent.repaint();
 	}
