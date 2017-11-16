@@ -1,12 +1,11 @@
 package Factory.Implementation;
 
-import Factory.Interface.*;
 import Util.Implementation.*;
 
 /*
  * Factory class to create a reader.
  */
-public class ReaderFactory implements IReaderFactory{
+public class ReaderFactory extends AbstractReaderFactory{
 	private FileFormatFactory fileFormatFactory;
 	
 	public ReaderFactory(FileFormatFactory fileFormatFactory) {

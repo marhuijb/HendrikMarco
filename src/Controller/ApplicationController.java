@@ -3,7 +3,8 @@ package Controller;
 import java.io.IOException;
 
 import Controller.Interface.*;
-import Factory.Interface.*;
+import Factory.Implementation.*;
+import Factory.Interface.ICommandFactory;
 import Model.*;
 import Util.Implementation.*;
 import View.*;
@@ -13,8 +14,8 @@ import View.*;
  */
 public class ApplicationController implements IApplicationController{
 	private SlideViewerFrame parent;
-	private IReaderFactory readerFactory;
-	private ISaverFactory saverFactory;
+	private AbstractReaderFactory readerFactory;
+	private AbstractSaverFactory saverFactory;
 	private ICommandFactory commandFactory;
 	private IPresentationController presentationController;
 	
@@ -103,11 +104,11 @@ public class ApplicationController implements IApplicationController{
 		this.parent = frame;
 	}
 	
-	public void setReaderFactory(IReaderFactory readerFactory) {
+	public void setReaderFactory(AbstractReaderFactory readerFactory) {
 		this.readerFactory = readerFactory;
 	}
 
-	public void setSaverFactory(ISaverFactory saverFactory) {
+	public void setSaverFactory(AbstractSaverFactory saverFactory) {
 		this.saverFactory = saverFactory;
 	}
 

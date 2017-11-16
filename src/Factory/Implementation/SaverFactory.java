@@ -1,12 +1,11 @@
 package Factory.Implementation;
 
-import Factory.Interface.*;
 import Util.Implementation.*;
 
 /*
  * Factory class to create a Saver class.
  */
-public class SaverFactory implements ISaverFactory{
+public class SaverFactory extends AbstractSaverFactory{
 	private FileFormatFactory fileFormatFactory;
 	
 	public SaverFactory(FileFormatFactory fileFormatFactory) {

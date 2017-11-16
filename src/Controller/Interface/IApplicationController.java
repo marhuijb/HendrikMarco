@@ -2,6 +2,7 @@ package Controller.Interface;
 
 import java.io.IOException;
 
+import Factory.Implementation.*;
 import Factory.Interface.*;
 import Model.*;
 import View.SlideViewerFrame;
@@ -13,8 +14,8 @@ public interface IApplicationController{
 	public void createNew();
 	public void about();
 	public void setFrame(SlideViewerFrame frame);
-	public void setReaderFactory(IReaderFactory readerFactory);
-	public void setSaverFactory(ISaverFactory saverFactory);
+	public void setReaderFactory(AbstractReaderFactory readerFactory);
+	public void setSaverFactory(AbstractSaverFactory saverFactory);
 	public void setCommandFactory(ICommandFactory commandFactory);
 	public void setPresentationController(IPresentationController presentationController);
 }

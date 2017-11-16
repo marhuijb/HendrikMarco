@@ -3,8 +3,6 @@ package Application;
 import Controller.Interface.*;
 import Factory.Implementation.*;
 import Factory.Interface.*;
-import Model.Presentation;
-import View.SlideViewerFrame;
 
 /** JabberPoint Main Programma
  * <p>This program is distributed under the terms of the accompanying
@@ -35,8 +33,8 @@ public class JabberPoint {
 		
 		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);		
 		FileFormatFactory fileFormatFactory = new FileFormatFactory(new PresentationFactory(), commandFactory);
-		IReaderFactory readerFactory = new ReaderFactory(fileFormatFactory);
-		ISaverFactory saverFactory = new SaverFactory(fileFormatFactory);
+		AbstractReaderFactory readerFactory = new ReaderFactory(fileFormatFactory);
+		AbstractSaverFactory saverFactory = new SaverFactory(fileFormatFactory);
 		applicationController.setReaderFactory(readerFactory);
 		applicationController.setSaverFactory(saverFactory);
 		applicationController.setCommandFactory(commandFactory);
@@ -44,6 +42,5 @@ public class JabberPoint {
 		
 		//Read a presentation
 		applicationController.open(null, argv.length == 0 ? "" : argv[0]);
-
 	}
 }
