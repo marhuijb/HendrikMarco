@@ -55,7 +55,7 @@ public class MenuController extends MenuBar {
 		
 		//Create view menu
 		Menu viewMenu = new Menu(VIEW);
-		viewMenu.add(createMenuItem(NEXT, commandFactory.createNextSlideCommand()));
+		viewMenu.add(createMenuItem(NEXT, commandFactory.createNextSlideCommand(), 'X'));
 		viewMenu.add(createMenuItem(PREV, commandFactory.createPreviousSlideCommand()));		
 		viewMenu.add(createMenuItem(FIRST, commandFactory.createFirstSlideCommand()));
 		viewMenu.add(createMenuItem(LAST, commandFactory.createLastSlideCommand()));
@@ -69,12 +69,22 @@ public class MenuController extends MenuBar {
 	}
 	
 	/*
-	 * Create a menu item and add the command as action listener
-	 * @param name The visible name of the menu item
+	 * Create a menu item and add the command as action listener. 
+	 * @param name The visible name of the menu item. The first character of the name is used as short cut.
 	 * @param command The command to be executed when the menu item is clicked.
 	 */
 	private MenuItem createMenuItem(String name, AbstractCommand command) {
-		MenuItem menuItem = new MenuItem(name, new MenuShortcut(name.charAt(0)));
+		return createMenuItem(name, command, name.charAt(0));
+	}
+	
+	/*
+	 * Create a menu item and add the command as action listener
+	 * @param name The visible name of the menu item
+	 * @param command The command to be executed when the menu item is clicked.
+	 * @param menuShortCut The character used as menu short cut
+	 */
+	private MenuItem createMenuItem(String name, AbstractCommand command, char menuShortCut) {
+		MenuItem menuItem = new MenuItem(name, new MenuShortcut(menuShortCut));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				command.execute();
