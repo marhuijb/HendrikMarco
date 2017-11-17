@@ -1,6 +1,6 @@
 package Factory.Implementation;
 
-import Util.Implementation.*;
+import File.*;
 
 public abstract class AbstractReaderFactory{
 	public abstract AbstractReader createReader();
