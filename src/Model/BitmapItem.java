@@ -27,7 +27,6 @@ import java.io.IOException;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class BitmapItem extends SlideItem {
 	private BufferedImage bufferedImage;
 	private String imageName;
@@ -35,8 +34,11 @@ public class BitmapItem extends SlideItem {
 	protected static final String FILE = "Bestand ";
 	protected static final String NOTFOUND = " niet gevonden";
 
-	// level staat voor het item-level; name voor de naam van het bestand met de
-	// afbeelding
+	/**
+	 * Constructor
+	 * @param level The item level
+	 * @param name Name of the file that contains the image  
+	 */
 	public BitmapItem(int level, String name) {
 		super(level);
 		imageName = name;
@@ -46,24 +48,44 @@ public class BitmapItem extends SlideItem {
 			System.err.println(FILE + imageName + NOTFOUND);
 		}
 	}
-
-	// Een leeg bitmap-item
+ 
+	/**
+	 * Constructor
+	 * Create a empty bitmap item 
+	 */
 	public BitmapItem() {
 		this(0, null);
 	}
 
-	// geef de bestandsnaam van de afbeelding
+	/**
+	 * Get the file name of the image
+	 * @return The file name
+	 */
 	public String getName() {
 		return imageName;
 	}
 
-	// geef de bounding box van de afbeelding
+	/**
+	 * Get the bounding box of the image
+	 * @param g Not used!
+	 * @param observer
+	 * @param scale The scale factor
+	 * @param myStyle The style of the image
+	 * @return The bounding box of the image
+	 */ 
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
 		return new Rectangle((int) (myStyle.getIndent() * scale), 0, (int) (bufferedImage.getWidth(observer) * scale),
 				((int) (myStyle.getLeading() * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
 	}
 
-	// teken de afbeelding
+	/**
+	 * Draw the image
+	 * @param x The x position of the image
+	 * @param y The y position of the image
+	 * @param scale The scale factor
+	 * @param myStyle The style of image
+	 * @param observer 
+	 */
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
 		int width = x + (int) (myStyle.getIndent() * scale);
 		int height = y + (int) (myStyle.getLeading() * scale);
@@ -89,6 +111,9 @@ public class BitmapItem extends SlideItem {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public String toString() {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";
 	}

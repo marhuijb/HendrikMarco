@@ -16,7 +16,6 @@ import Factory.StyleFactory;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  * @version 1.7 2014/05/16 Hendrik en Marco
  */
-
 public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;

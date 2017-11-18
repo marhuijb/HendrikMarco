@@ -38,30 +38,51 @@ public class TextItem extends SlideItem {
 
 	private static final String EMPTYTEXT = "No Text Given";
 
-	// een textitem van level level, met als tekst string
+	/**
+	 * Constructs a text item with a level and some text
+	 * @param level The level of the text item
+	 * @param string The text of the text item
+	 */
 	public TextItem(int level, String string) {
 		super(level);
 		text = string;
 	}
 
-	// een leeg textitem
+	/**
+	 * Constructs an empty text item
+	 */
 	public TextItem() {
 		this(0, EMPTYTEXT);
 	}
 
-	// Geef de tekst
+	/**
+	 * Give the text
+	 * @return The text
+	 */
 	public String getText() {
 		return text == null ? "" : text;
 	}
 
-	// geef de AttributedString voor het item
+	/**
+	 * Get the attributed string of the text item
+	 * @param style The used style
+	 * @param scale The useds scale factor
+	 * @return The attributed string
+	 */
 	public AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(getText());
 		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
 		return attrStr;
 	}
 
-	// geef de bounding box van het item
+	/**
+	 * Get the bounding box of the text item
+	 * @param g The graphic object on which the text item is drawn
+	 * @param observer Not used!
+	 * @param scale The scale factor
+	 * @param myStyle The style of the text item
+	 * @return The bounding box of the text item
+	 */
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
@@ -80,7 +101,15 @@ public class TextItem extends SlideItem {
 		return new Rectangle((int) (myStyle.getIndent() * scale), 0, xsize, ysize);
 	}
 
-	// teken het item
+	/**
+	 * Draw the the text item
+	 * @param x The x position on the window
+	 * @param y The y position on the window
+	 * @param scale The scale factor
+	 * @param g On this graphic object the test item will be drawn
+	 * @param myStyle the style for the text item
+	 * @param o Not used!
+	 */
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
 
 		if (text == null || text.length() == 0) {
@@ -130,9 +159,15 @@ public class TextItem extends SlideItem {
 			pen.y += layout.getDescent();
 
 		}
-
 	}
 
+	/**
+	 * Get the layout of the text item
+	 * @param g The graphics object
+	 * @param s The used style
+	 * @param scale The scale factor
+	 * @return a array with the text layout objects
+	 */
 	private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
 		AttributedString attrStr = getAttributedString(s, scale);

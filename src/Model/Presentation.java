@@ -15,54 +15,80 @@ import View.SlideViewerComponent;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class Presentation {
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
 	private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
 
+	/**
+	 * Constructor
+	 */
 	public Presentation() {
 		slideViewComponent = null;
 		clear();
 	}
 
+	/**
+	 * Constructor
+	 * @param slideViewerComponent Couples the presentation to this slide viewer
+	 */
 	public Presentation(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 		clear();
 	}
 
+	/**
+	 * Get the amount of slides
+	 * @return the amount of slides
+	 */
 	public int getSize() {
 		return showList.size();
 	}
 
+	/**
+	 * Get the title of the presentation
+	 * @return The title
+	 */
 	public String getTitle() {
 		return showTitle;
 	}
 
-	public void setTitle(String nt) {
-		showTitle = nt;
+	/**
+	 * Set the title of the presentation
+	 * @param title The title of the presentation
+	 */
+	public void setTitle(String title) {
+		showTitle = title;
 	}
 
+	/**
+	 * Set the slide view component
+	 * @param slideViewerComponent
+	 */
 	public void setShowView(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 	}
 	
-	public void setShowView(Presentation presentation) {
-		this.slideViewComponent = presentation.slideViewComponent;
-	}
-
-	// repaint de slideViewComponent
+	/**
+	 * Repaint the presentation
+	 */
 	public void rePaint() {
 		slideViewComponent.repaint();
 	}
 
-	// geef het nummer van de huidige slide
+	/**
+	 * Get the number of the current slide
+	 * @return The number of the slide
+	 */
 	public int getSlideNumber() {
 		return currentSlideNumber;
 	}
 
-	// verander het huidige-slide-nummer en laat het aan het window weten.
+	/**
+	 * Change the slide number and update the window
+	 * @param number The new slide number
+	 */
 	public void setSlideNumber(int number) {
 		currentSlideNumber = number;
 		if (slideViewComponent != null) {
@@ -70,32 +96,45 @@ public class Presentation {
 		}
 	}
 
-	// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
+	/**
+	 * Go to the previous slide until the first slide is already reached.
+	 */
 	public void prevSlide() {
 		if (currentSlideNumber > 0) {
 			setSlideNumber(currentSlideNumber - 1);
 	    }
 	}
 
-	// Ga naar de volgende slide tenzij je aan het einde van de presentatie bent.
+	/**
+	 * Go to the next slide, until the end of the presentations is already reached
+	 */
 	public void nextSlide() {
 		if (currentSlideNumber < (showList.size()-1)) {
 			setSlideNumber(currentSlideNumber + 1);
 		}
 	}
 
-	// Verwijder de presentatie, om klaar te zijn voor de volgende
+    /**
+     * Clear the presentation. All slides are removed.
+     */
 	public void clear() {
 		showList = new ArrayList<Slide>();
 		setSlideNumber(-1);
 	}
 
-	// Voeg een slide toe aan de presentatie
+	/**
+	 * Add a slide to the presentation
+	 * @param slide The slide to be added
+	 */
 	public void append(Slide slide) {
 		showList.add(slide);
 	}
 
-	// Geef een slide met een bepaald slidenummer
+	/**
+	 * Get the slide with a specific slide number
+	 * @param number The number of the requested slide
+	 * @return The requested slide. Null if the requested slide isn't available.
+	 */
 	public Slide getSlide(int number) {
 		if (number < 0 || number >= getSize()){
 			return null;
@@ -103,7 +142,10 @@ public class Presentation {
 			return (Slide)showList.get(number);
 	}
 
-	// Geef de huidige Slide
+	/**
+	 * Get the current slide
+	 * @return The current slide
+	 */
 	public Slide getCurrentSlide() {
 		return getSlide(currentSlideNumber);
 	}

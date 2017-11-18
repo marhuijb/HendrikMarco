@@ -22,7 +22,6 @@ import Controller.Command.AbstractCommand;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public abstract class SlideItem {
 	private AbstractCommand slideItemCommand;
 
@@ -32,42 +31,70 @@ public abstract class SlideItem {
 
 	protected boolean hoverStatus = false;
 
-	public SlideItem(int lev) {
-		level = lev;
+	/**
+	 * Constructor
+	 * @param level The level of the slide item
+	 */
+	public SlideItem(int level) {
+		this.level = level;
 	}
 
+	/**
+	 * Constructor. The level will be 0
+	 */
 	public SlideItem() {
 		this(0);
 	}
 
-	// Geef het level
+	/**
+	 * Get the level of the slide item
+	 * @return The level
+	 */
 	public int getLevel() {
 		return level;
 	}
 
-	// Verander HoverStatus
+	/**
+	 * Change the hover state of the slide item
+	 * @param inside the state of the hover
+	 */
 	public void setHoverStatus(boolean inside) {
 		hoverStatus = inside;
 	}
 
-	// Koppel HoverStatus status terug
+	/**
+	 * Get the hover state
+	 * @return The hover state
+	 */
 	public boolean getHoverStatus() {
 		return hoverStatus;
 	}
 
+	/**
+	 * Set the hyper link box
+	 * @param hyperlinkBox The rectangle of the hyper link box
+	 */
 	public void setHyperlinkBox(Rectangle hyperlinkBox) {
 		this.hyperlinkBox = hyperlinkBox;
 	}
 
+	/**
+	 * Get the hyper link box
+	 * @return The hyper link box
+	 */
 	public Rectangle getHyperlinkBox() {
 		return this.hyperlinkBox;
 	}
 
+	/**
+	 * Set the slide item command
+	 * @param slideItemCommand The slide item command
+	 */
 	public void setSlideItemCommand(AbstractCommand slideItemCommand) {
 		this.slideItemCommand = slideItemCommand;
 	}
 
-	/*
+	/**
 	 * Execute the command which is connected to this item.
 	 */
 	public void execute() {
@@ -76,12 +103,20 @@ public abstract class SlideItem {
 		}
 	}
 
-	// Geef de bounding box
+	/**
+	 * Get the slide item bounding box
+	 */
 	public abstract Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
 
-	// teken het item
+	/**
+	 * Draw the slide item
+	 */
 	public abstract void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
 	
+	/**
+	 * Get the slide command
+	 * @return The slide command
+	 */
 	public AbstractCommand getSlideItemCommand() {
 	 return this.slideItemCommand;
 	}
