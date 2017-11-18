@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controller.Interface.*;
 import Factory.*;
@@ -23,17 +25,21 @@ public class ApplicationController implements IApplicationController{
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 	
 	/**
-	 * Open a the test presentation
-	 * @param presentation Fill with the new presentation
+	 * Open a presentation who is selected by the user. Only xml files can be opened.
+	 * @param presentation Will be filled with the new presentation
 	 */
-	public void open(Presentation presentation) {
-		presentation.clear();
-		
-		if (readerFactory != null) {
-			AbstractReader reader = readerFactory.createReader();
-			presentation = reader.readPresentation(TESTFILE);
+	public void open(Presentation presentation) {								
+		if (parent == null) {
+			return;
 		}
-		parent.repaint();
+		
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("XML file", "xml"));
+		int result = fc.showOpenDialog(parent);
+		if (result == JFileChooser.APPROVE_OPTION) {	
+			String fileName = fc.getSelectedFile().getPath();
+			open(presentation, fileName);
+		}					
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class ApplicationController implements IApplicationController{
 	 * @param fileName Open this file as the new presentation. If the file name isn't provided then the test presentation is loaded.
 	 */
 	public void open(Presentation presentation, String fileName) {
-		if (fileName == "") {
+		if (fileName == "" || fileName == null) {			
 			fileName = TESTFILE;
 		}
 		

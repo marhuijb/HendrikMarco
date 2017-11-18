@@ -35,7 +35,7 @@ public class OpenPresentationCommand extends CommandDecorator{
 	 */
 	public void execute() {	
 		if (applicationController != null && presentationController != null) {
-			if (fileName == "") {
+			if (fileName == "" || fileName == null) {
 				applicationController.open(presentationController.getPresentation());
 			}
 			else {
