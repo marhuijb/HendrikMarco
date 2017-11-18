@@ -25,14 +25,14 @@ public class Style {
 	private final int indent;
 	private final int leading;
 
-	private Style(Builder builder) {
-		this.fontName = builder.fontName;
-		this.fontStyle = builder.fontStyle;
-		this.fontSize = builder.fontSize;
-		this.fontColor = builder.fontColor;
+	public Style(Factory.StyleBuilder styleBuilder) {
+		this.fontName = styleBuilder.getFontName();
+		this.fontStyle = styleBuilder.getFontStyle();
+		this.fontSize = styleBuilder.getFontSize();
+		this.fontColor = styleBuilder.getFontColor();
 
-		this.indent = builder.indent;
-		this.leading = builder.leading;
+		this.indent = styleBuilder.getIndent();
+		this.leading = styleBuilder.getLeading();
 	}
 
 	public String getFontName() {
@@ -58,47 +58,7 @@ public class Style {
 	public int getLeading() {
 		return leading;
 	}
-	
-	public static class Builder {
-		private String fontName;
-		private int fontStyle;
-		private int fontSize;
-		private Color fontColor;
 
-		private int indent;
-		private int leading;
-
-		public Builder fontName (final String fontName) {
-			this.fontName = fontName;
-			return this;
-		}
-		public Builder fontStyle (final int fontStyle) {
-			this.fontStyle = fontStyle;
-			return this;
-		}
-		public Builder fontSize (final int fontSize) {
-			this.fontSize = fontSize;
-			return this;
-		}
-		public Builder fontColor (final Color fontColor) {
-			this.fontColor = fontColor;
-			return this;
-		}
-		
-		public Builder indent (final int indent) {
-			this.indent = indent;
-			return this;
-		}
-		public Builder leading (final int leading) {
-			this.leading = leading;
-			return this;
-		}
-
-		public Style build() {
-			return new Style(this);
-		}		
-	}	
-	
 	public String toString() {
 		return "["+ indent + "," + fontColor + "; " + fontSize + " on " + leading +"]";
 	}

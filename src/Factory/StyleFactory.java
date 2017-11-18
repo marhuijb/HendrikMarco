@@ -26,23 +26,23 @@ public class StyleFactory {
 	 */
 	private static void createStyles() {
 
-		styles.addElement(new Style.Builder() // style voor item-level 0
+		styles.addElement(new StyleBuilder() // style voor item-level 0
 				.fontName("Helvetica").fontStyle(Font.BOLD).fontSize(48).fontColor(Color.RED).indent(0).leading(20)
 				.build());
 
-		styles.addElement(new Style.Builder() // style voor item-level 1
+		styles.addElement(new StyleBuilder() // style voor item-level 1
 				.fontName("Helvetica").fontStyle(Font.BOLD).fontSize(40).fontColor(Color.BLUE).indent(20).leading(10)
 				.build());
 
-		styles.addElement(new Style.Builder() // style voor item-level 2
+		styles.addElement(new StyleBuilder() // style voor item-level 2
 				.fontName("Helvetica").fontStyle(Font.BOLD).fontSize(36).fontColor(Color.BLACK).indent(50).leading(10)
 				.build());
 
-		styles.addElement(new Style.Builder() // style voor item-level 3
+		styles.addElement(new StyleBuilder() // style voor item-level 3
 				.fontName("Helvetica").fontStyle(Font.BOLD).fontSize(30).fontColor(Color.BLACK).indent(70).leading(10)
 				.build());
 
-		styles.addElement(new Style.Builder() // style voor item-level 4
+		styles.addElement(new StyleBuilder() // style voor item-level 4
 				.fontName("Helvetica").fontStyle(Font.BOLD).fontSize(24).fontColor(Color.BLACK).indent(90).leading(10)
 				.build());
 	}
