@@ -65,7 +65,7 @@ public class ApplicationController implements IApplicationController{
 		
 	/**
 	 * Save the presentation to a file.
-	 * @param The presentation to be saved.
+	 * @param presentation The presentation to be saved.
 	 */
 	public void save(Presentation presentation) {
 		if (saverFactory != null) {

@@ -67,7 +67,6 @@ public class CommandFactory extends AbstractCommandFactory{
 
 	/**
 	 * Create GoTo Slide Command
-	 * @see Controller.Command.GotoSlideCommand
 	 */
 	public AbstractCommand createGoToSlideCommand() {
 		return new GoToSlideCommand(presentationController);
@@ -75,7 +74,6 @@ public class CommandFactory extends AbstractCommandFactory{
 	
 	/**
 	 * Create GoTo Slide Command
-	 * @see Controller.Command.GotoSlideCommand
 	 * @param slideNumber Go to this slide number
 	 */
 	public AbstractCommand createGoToSlideCommand(int slideNumber) {
@@ -141,7 +139,7 @@ public class CommandFactory extends AbstractCommandFactory{
 	
 	/**
 	 * Create a command. The following command's are available: next, previous, first, last, open, go, beep
-	 * @attributes A list with attributes for creating a command
+	 * @param attributes A list with attributes for creating a command
 	 * @throws IllegalArgumentException If the command doesn't exist
 	 * @return The created command object
 	 */

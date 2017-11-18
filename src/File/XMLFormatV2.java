@@ -321,7 +321,7 @@ public class XMLFormatV2 extends FileFormat{
 	 * Print the start action element <action ... >
 	 * @param out Print to this writer
 	 * @param ident the ident level of the element
-	 * @command command The command to be printed
+	 * @param command The command to be printed
 	 */
 	private void printStartActionElement(PrintWriter out, int ident, AbstractCommand command) {
 		String attributes = getAttributes(command);
@@ -352,17 +352,17 @@ public class XMLFormatV2 extends FileFormat{
 	 * Print a slide item
 	 * @param slideItem The slide item to be printed.
 	 * @param out 
-	 * @param indent The ident level
+	 * @param indent The indent level
 	 */
-	private void printSlideItem(SlideItem slideItem, PrintWriter out, int ident) {
+	private void printSlideItem(SlideItem slideItem, PrintWriter out, int indent) {
 		if (slideItem instanceof TextItem) {
-			out.print(addIdent(ident) + "<text level=\"" + slideItem.getLevel() + "\">");
+			out.print(addIdent(indent) + "<text level=\"" + slideItem.getLevel() + "\">");
 			out.print( ( (TextItem) slideItem).getText());
 			out.println("</text>");
 		}
 		else {
 			if (slideItem instanceof BitmapItem) {
-				out.print(addIdent(ident) + "<image level=\"" + slideItem.getLevel() + "\">");
+				out.print(addIdent(indent) + "<image level=\"" + slideItem.getLevel() + "\">");
 				out.print( ( (BitmapItem) slideItem).getName());
 				out.println("</image>");
 			}
