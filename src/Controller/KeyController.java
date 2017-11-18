@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 import Controller.Command.AbstractCommand;
-import Factory.Interface.ICommandFactory;
+import Factory.Implementation.*;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ import Factory.Interface.ICommandFactory;
 public class KeyController extends KeyAdapter {
 	HashMap<Integer, AbstractCommand> keys = null;
 
-	public KeyController(ICommandFactory commandFactory) {
+	public KeyController(AbstractCommandFactory commandFactory) {
 		keys = new HashMap<Integer, AbstractCommand>();
 
 		keys.put(KeyEvent.VK_PAGE_DOWN, commandFactory.createNextSlideCommand());

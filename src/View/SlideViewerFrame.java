@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import Controller.*;
-import Factory.Interface.*;
+import Factory.Implementation.AbstractCommandFactory;
 import Model.Presentation;
 
 /**
@@ -23,7 +23,7 @@ import Model.Presentation;
 public class SlideViewerFrame extends JFrame {
 	private static final long serialVersionUID = 3227L;
 	private SlideViewerComponent slideViewerComponent;
-	private ICommandFactory commandFactory;
+	private AbstractCommandFactory commandFactory;
 		
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
@@ -34,7 +34,7 @@ public class SlideViewerFrame extends JFrame {
 	 * @param presentation The presentation to be shown
 	 * @param commandFactory the command factory uses by some listeners of this frame 
 	 */
-	public SlideViewerFrame(String title, Presentation presentation, ICommandFactory commandFactory) {
+	public SlideViewerFrame(String title, Presentation presentation, AbstractCommandFactory commandFactory) {
 		super(title);
 		this.commandFactory = commandFactory;		
 		setupWindow(presentation);

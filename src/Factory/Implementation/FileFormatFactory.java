@@ -14,12 +14,12 @@ import org.xml.sax.SAXException;
  */
 public class FileFormatFactory{
 	private IPresentationFactory presentationFactory;
-	private ICommandFactory commandFactory;
+	private AbstractCommandFactory commandFactory;
 	
 	public static final String V1 = "jabberpoint.dtd";
 	public static final String V2 = "jabberPoint2.dtd";
 	
-	public FileFormatFactory(IPresentationFactory presentationFactory, ICommandFactory commandFactory) {
+	public FileFormatFactory(IPresentationFactory presentationFactory, AbstractCommandFactory commandFactory) {
 		this.presentationFactory = presentationFactory;
 		this.commandFactory = commandFactory;
 	}

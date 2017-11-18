@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Controller.Command.AbstractCommand;
-import Factory.Interface.ICommandFactory;
+import Factory.Implementation.AbstractCommandFactory;
 
 /** <p>De controller voor het menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -47,7 +47,7 @@ public class MenuController extends MenuBar {
 	 * Constructor
 	 * @param commandFactory The command factory for creating commands.
 	 */
-	public MenuController(ICommandFactory commandFactory) {				
+	public MenuController(AbstractCommandFactory commandFactory) {				
 		//Create file menu
 		Menu fileMenu = new Menu(FILE);		
 		fileMenu.add(createMenuItem(OPEN, commandFactory.createOpenPresentationCommand()));

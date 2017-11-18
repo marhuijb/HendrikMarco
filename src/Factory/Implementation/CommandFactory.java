@@ -3,12 +3,11 @@ package Factory.Implementation;
 import java.util.*;
 import Controller.Command.*;
 import Controller.Interface.*;
-import Factory.Interface.ICommandFactory;
 
 /**
  * Factory for creating command objects
  */
-public class CommandFactory implements ICommandFactory{
+public class CommandFactory extends AbstractCommandFactory{
 	protected static final String COMMAND_NOT_FOUND = "Command not found"; 
     
 	protected static final String NAME_ATTR = "name";

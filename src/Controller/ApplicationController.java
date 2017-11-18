@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import Controller.Interface.*;
 import Factory.Implementation.*;
-import Factory.Interface.ICommandFactory;
 import Model.*;
 import File.*;
 import View.*;
@@ -16,7 +15,7 @@ public class ApplicationController implements IApplicationController{
 	private SlideViewerFrame parent;
 	private AbstractReaderFactory readerFactory;
 	private AbstractSaverFactory saverFactory;
-	private ICommandFactory commandFactory;
+	private AbstractCommandFactory commandFactory;
 	private IPresentationController presentationController;
 	
 	protected static final String TESTFILE = "test.xml";
@@ -111,7 +110,7 @@ public class ApplicationController implements IApplicationController{
 		this.saverFactory = saverFactory;
 	}
 
-	public void setCommandFactory(ICommandFactory commandFactory) {
+	public void setCommandFactory(AbstractCommandFactory commandFactory) {
 		this.commandFactory = commandFactory;	
 	}
 	

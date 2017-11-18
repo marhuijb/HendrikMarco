@@ -2,7 +2,6 @@ package Application;
 
 import Controller.Interface.*;
 import Factory.Implementation.*;
-import Factory.Interface.*;
 
 /** JabberPoint Main Programma
  * <p>This program is distributed under the terms of the accompanying
@@ -31,7 +30,7 @@ public class JabberPoint {
 		IApplicationController applicationController = ApplicationControllerFactory.getApplicationController();		
 		IPresentationController presentationController = PresentationControllerFactory.getPresentationController();
 		
-		ICommandFactory commandFactory = new CommandFactory(presentationController, applicationController);		
+		AbstractCommandFactory commandFactory = new CommandFactory(presentationController, applicationController);		
 		FileFormatFactory fileFormatFactory = new FileFormatFactory(new PresentationFactory(), commandFactory);
 		AbstractReaderFactory readerFactory = new ReaderFactory(fileFormatFactory);
 		AbstractSaverFactory saverFactory = new SaverFactory(fileFormatFactory);
