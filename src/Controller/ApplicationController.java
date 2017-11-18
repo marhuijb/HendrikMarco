@@ -3,7 +3,7 @@ package Controller;
 import java.io.IOException;
 
 import Controller.Interface.*;
-import Factory.Implementation.*;
+import Factory.*;
 import Model.*;
 import File.*;
 import View.*;

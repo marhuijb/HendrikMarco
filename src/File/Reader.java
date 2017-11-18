@@ -1,14 +1,13 @@
 package File;
 
-import Factory.Implementation.*;
-import Factory.Interface.*;
+import Factory.*;
 import Model.Presentation;
 
 /**
  * Class for reading presentation from files.
  */
 public class Reader extends AbstractReader{	
-	public Reader(IPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory) {
+	public Reader(AbstractPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory) {
 		super(presentationFactory, fileFormatFactory);
 	}
 	

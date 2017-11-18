@@ -2,7 +2,7 @@ package Controller.Interface;
 
 import java.io.IOException;
 
-import Factory.Implementation.*;
+import Factory.*;
 import Model.*;
 import View.SlideViewerFrame;
 

@@ -1,6 +1,5 @@
-package Factory.Implementation;
+package Factory;
 
-import Factory.Interface.*;
 import File.*;
 
 import java.io.*;
@@ -13,13 +12,13 @@ import org.xml.sax.SAXException;
  * Factory class to create the correct file format class
  */
 public class FileFormatFactory{
-	private IPresentationFactory presentationFactory;
+	private AbstractPresentationFactory presentationFactory;
 	private AbstractCommandFactory commandFactory;
 	
 	public static final String V1 = "jabberpoint.dtd";
 	public static final String V2 = "jabberPoint2.dtd";
 	
-	public FileFormatFactory(IPresentationFactory presentationFactory, AbstractCommandFactory commandFactory) {
+	public FileFormatFactory(AbstractPresentationFactory presentationFactory, AbstractCommandFactory commandFactory) {
 		this.presentationFactory = presentationFactory;
 		this.commandFactory = commandFactory;
 	}

@@ -1,7 +1,7 @@
 package Application;
 
 import Controller.Interface.*;
-import Factory.Implementation.*;
+import Factory.*;
 
 /** JabberPoint Main Programma
  * <p>This program is distributed under the terms of the accompanying

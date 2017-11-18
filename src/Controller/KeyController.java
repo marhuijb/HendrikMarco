@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 import Controller.Command.AbstractCommand;
-import Factory.Implementation.*;
+import Factory.*;
 
 /**
  * <p>

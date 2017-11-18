@@ -1,12 +1,11 @@
-package Factory.Implementation;
+package Factory;
 
-import Factory.Interface.*;
 import Model.*;
 
 /**
  * The factory for creating the presentation and related objects. These are: Slide, TextItem, BitmapItem, SlideItemCommand 
  */
-public class PresentationFactory implements IPresentationFactory{
+public class PresentationFactory extends AbstractPresentationFactory{
 
 	/**
 	 * Create a presentation

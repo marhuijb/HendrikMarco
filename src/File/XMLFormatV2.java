@@ -11,8 +11,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import Factory.Implementation.*;
-import Factory.Interface.*;
+import Factory.*;
 import Model.*;
 import Controller.Command.*;
 
@@ -52,7 +51,7 @@ public class XMLFormatV2 extends FileFormat{
 	 * @param presentationFactory The factory to create presentation objects
 	 * @param commandFactory The factory to create commands
 	 */
-	public XMLFormatV2(IPresentationFactory presentationFactory, AbstractCommandFactory commandFactory) {
+	public XMLFormatV2(AbstractPresentationFactory presentationFactory, AbstractCommandFactory commandFactory) {
 		super(presentationFactory);		
 		
 		this.commandFactory = commandFactory;

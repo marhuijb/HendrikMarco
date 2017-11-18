@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import Controller.*;
-import Factory.Implementation.AbstractCommandFactory;
+import Factory.AbstractCommandFactory;
 import Model.Presentation;
 
 /**

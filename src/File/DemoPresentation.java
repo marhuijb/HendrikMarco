@@ -1,6 +1,6 @@
 package File;
 
-import Factory.Interface.IPresentationFactory;
+import Factory.*;
 import Model.*;
 
 /** Een ingebouwde demo-presentatie
@@ -15,7 +15,7 @@ import Model.*;
 
 public class DemoPresentation extends FileFormat {
 
-	public DemoPresentation(IPresentationFactory presentationFactory) {
+	public DemoPresentation(AbstractPresentationFactory presentationFactory) {
 		super(presentationFactory); 
 	}
 

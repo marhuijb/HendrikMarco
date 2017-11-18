@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Controller.Command.AbstractCommand;
-import Factory.Implementation.AbstractCommandFactory;
+import Factory.AbstractCommandFactory;
 
 /** <p>De controller voor het menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman

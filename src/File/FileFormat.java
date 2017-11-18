@@ -1,6 +1,6 @@
 package File;
 
-import Factory.Interface.IPresentationFactory;
+import Factory.AbstractPresentationFactory;
 import Model.*;
 
 /**
@@ -8,13 +8,13 @@ import Model.*;
  *
  */
 public abstract class FileFormat{
-	protected IPresentationFactory presentationFactory;
+	protected AbstractPresentationFactory presentationFactory;
 	
 	/**
 	 * Constructor to prevent instantiation of the abstract object
 	 * @param presentationFactory The factory for creating presentation objects
 	 */
-	protected FileFormat(IPresentationFactory presentationFactory){
+	protected FileFormat(AbstractPresentationFactory presentationFactory){
 		this.presentationFactory = presentationFactory;
 	}
 	

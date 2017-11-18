@@ -2,7 +2,7 @@ package File;
 
 import java.io.IOException;
 
-import Factory.Interface.*;
+import Factory.*;
 import Model.*;
 
 /**
@@ -15,7 +15,7 @@ public class XMLFormatV1 extends FileFormat{
 	 * The constructor
 	 * @param presentationFactory The factory to create presentation objects
 	 */
-	public XMLFormatV1(IPresentationFactory presentationFactory) {
+	public XMLFormatV1(AbstractPresentationFactory presentationFactory) {
 		super(presentationFactory);
 	}
 

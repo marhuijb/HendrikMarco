@@ -1,14 +1,13 @@
 package File;
 
-import Factory.Implementation.*;
-import Factory.Interface.*;
+import Factory.*;
 import Model.*;
 
 /**
  * Class for saving a presentation 
  */
 public class Saver extends AbstractSaver{
-	public Saver(IPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory) {
+	public Saver(AbstractPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory) {
 		super(presentationFactory, fileFormatFactory);
 	}
 	

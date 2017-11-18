@@ -1,4 +1,4 @@
-package Factory.Implementation;
+package Factory;
 
 import java.util.*;
 import Controller.Command.*;

@@ -1,7 +1,6 @@
 package File;
 
-import Factory.Implementation.*;
-import Factory.Interface.*;
+import Factory.*;
 import Model.Presentation;
 
 /**
@@ -9,14 +8,14 @@ import Model.Presentation;
  */
 public abstract class AbstractReader{
 	protected FileFormatFactory fileFormatFactory;
-	protected IPresentationFactory presentationFactory;
+	protected AbstractPresentationFactory presentationFactory;
 	
 	/**
 	 * Constructor
 	 * @param presentationFactory The factory for creating presentation objects
 	 * @param fileFormatFactory The factory for creating file format objects
 	 */
-	 protected AbstractReader(IPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory){
+	 protected AbstractReader(AbstractPresentationFactory presentationFactory, FileFormatFactory fileFormatFactory){
 		this.presentationFactory = presentationFactory;
 		this.fileFormatFactory = fileFormatFactory;
 	}

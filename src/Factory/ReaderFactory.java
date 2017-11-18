@@ -1,4 +1,4 @@
-package Factory.Implementation;
+package Factory;
 
 import File.*;
 
