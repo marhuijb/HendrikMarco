@@ -20,4 +20,5 @@ public interface IApplicationController{
 	public void setSaverFactory(AbstractSaverFactory saverFactory);
 	public void setCommandFactory(AbstractCommandFactory commandFactory);
 	public void setPresentationController(IPresentationController presentationController);
+	public void setMenuFactory(AbstractMenuFactory menuFactory);
 }

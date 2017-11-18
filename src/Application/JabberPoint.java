@@ -34,10 +34,12 @@ public class JabberPoint {
 		FileFormatFactory fileFormatFactory = new FileFormatFactory(new PresentationFactory(), commandFactory);
 		AbstractReaderFactory readerFactory = new ReaderFactory(fileFormatFactory);
 		AbstractSaverFactory saverFactory = new SaverFactory(fileFormatFactory);
+		AbstractMenuFactory menuFactory = new MenuFactory();
 		applicationController.setReaderFactory(readerFactory);
 		applicationController.setSaverFactory(saverFactory);
 		applicationController.setCommandFactory(commandFactory);
 		applicationController.setPresentationController(presentationController);
+		applicationController.setMenuFactory(menuFactory);
 		
 		//Read a presentation
 		applicationController.open(null, argv.length == 0 ? "" : argv[0]);

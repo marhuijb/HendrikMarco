@@ -8,7 +8,7 @@ import Model.*;
 import File.*;
 import View.*;
 
-/*
+/**
  * Controller class for the JabberPoint application.
  */
 public class ApplicationController implements IApplicationController{
@@ -16,12 +16,13 @@ public class ApplicationController implements IApplicationController{
 	private AbstractReaderFactory readerFactory;
 	private AbstractSaverFactory saverFactory;
 	private AbstractCommandFactory commandFactory;
-	private IPresentationController presentationController;
+	private AbstractMenuFactory menuFactory;
+	private IPresentationController presentationController;	
 	
 	protected static final String TESTFILE = "test.xml";
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 	
-	/*
+	/**
 	 * Open a the test presentation
 	 * @param presentation Fill with the new presentation
 	 */
@@ -35,7 +36,7 @@ public class ApplicationController implements IApplicationController{
 		parent.repaint();
 	}
 
-	/*
+	/**
 	 * Open a new presentation.
 	 * @param presentation Fill with the new presentation 
 	 * @param fileName Open this file as the new presentation. If the file name isn't provided then the test presentation is loaded.
@@ -50,7 +51,7 @@ public class ApplicationController implements IApplicationController{
 		presentationController.setPresentation(newPresentation);			
 
 		if (parent == null){
-			SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, newPresentation, commandFactory);
+			SlideViewerFrame frame = new SlideViewerFrame(JABVERSION, newPresentation, commandFactory, menuFactory);
 			parent = frame;
 		}
 		else{
@@ -62,7 +63,7 @@ public class ApplicationController implements IApplicationController{
 		parent.repaint();
 	}
 		
-	/*
+	/**
 	 * Save the presentation to a file.
 	 * @param The presentation to be saved.
 	 */
@@ -77,7 +78,7 @@ public class ApplicationController implements IApplicationController{
 		}
 	}
 	
-	/*
+	/**
 	 * Create a new presentation
 	 */
 	public void createNew() {		
@@ -86,7 +87,7 @@ public class ApplicationController implements IApplicationController{
 		}
 	}
 	
-	/*
+	/**
 	 * Show the application's about form 
 	 */
 	public void about() {
@@ -95,26 +96,46 @@ public class ApplicationController implements IApplicationController{
 		}
 	}
 	
-	/*
+	/**
 	 * Set the frame 
 	 */
 	public void setFrame(SlideViewerFrame frame){
 		this.parent = frame;
 	}
 	
+	/**
+	 * Set the reader factory
+	 */
 	public void setReaderFactory(AbstractReaderFactory readerFactory) {
 		this.readerFactory = readerFactory;
 	}
 
+	/**
+	 * Set the saver factory
+	 */
 	public void setSaverFactory(AbstractSaverFactory saverFactory) {
 		this.saverFactory = saverFactory;
 	}
 
+	/**
+	 * Set the command factory
+	 */
 	public void setCommandFactory(AbstractCommandFactory commandFactory) {
 		this.commandFactory = commandFactory;	
 	}
 	
+	/**
+	 * Set the presentation controller
+	 */
 	public void setPresentationController(IPresentationController presentationController) {
 		this.presentationController = presentationController;
+	}
+	
+	/**
+	 * Set the menu factory
+	 * @param menuFactory
+	 */
+	public void setMenuFactory(AbstractMenuFactory menuFactory) {
+		this.menuFactory = menuFactory;
 	}
 }

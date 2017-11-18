@@ -3,12 +3,11 @@ package Controller;
 import java.awt.MenuBar;
 import java.awt.Menu;
 import java.awt.MenuItem;
-import java.awt.MenuShortcut;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Controller.Command.AbstractCommand;
-import Factory.AbstractCommandFactory;
+import Factory.*;
 
 /** <p>De controller voor het menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -21,6 +20,7 @@ import Factory.AbstractCommandFactory;
  */
 public class MenuController extends MenuBar {	
 	private static final long serialVersionUID = 227L;
+	private AbstractMenuFactory menuFactory;
 	
 	protected static final String ABOUT = "About";
 	protected static final String FILE = "File";
@@ -42,14 +42,16 @@ public class MenuController extends MenuBar {
 	protected static final String IOEX = "IO Exception: ";
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
-
+	
 	/**
 	 * Constructor
 	 * @param commandFactory The command factory for creating commands.
 	 */
-	public MenuController(AbstractCommandFactory commandFactory) {				
+	public MenuController(AbstractCommandFactory commandFactory, AbstractMenuFactory menuFactory) {				
+		this.menuFactory = menuFactory;
+		
 		//Create file menu
-		Menu fileMenu = new Menu(FILE);		
+		Menu fileMenu = menuFactory.createMenu(FILE);		
 		fileMenu.add(createMenuItem(OPEN, commandFactory.createOpenPresentationCommand()));
 		fileMenu.add(createMenuItem(NEW, commandFactory.createNewPresentationCommand()));
 		fileMenu.add(createMenuItem(SAVE, commandFactory.createSavePresentationCommand()));
@@ -58,7 +60,7 @@ public class MenuController extends MenuBar {
 		add(fileMenu);		
 		
 		//Create view menu
-		Menu viewMenu = new Menu(VIEW);
+		Menu viewMenu = menuFactory.createMenu(VIEW);
 		viewMenu.add(createMenuItem(NEXT, commandFactory.createNextSlideCommand(), 'X'));
 		viewMenu.add(createMenuItem(PREV, commandFactory.createPreviousSlideCommand()));		
 		viewMenu.add(createMenuItem(FIRST, commandFactory.createFirstSlideCommand()));
@@ -67,7 +69,7 @@ public class MenuController extends MenuBar {
 		add(viewMenu);
 		
 		//Create help menu
-		Menu helpMenu = new Menu(HELP);
+		Menu helpMenu = menuFactory.createMenu(HELP);
 		helpMenu.add(createMenuItem(ABOUT, commandFactory.createAboutCommand()));		
 		setHelpMenu(helpMenu);		// nodig for portability (Motif, etc.).
 	}
@@ -88,7 +90,7 @@ public class MenuController extends MenuBar {
 	 * @param menuShortCut The character used as menu short cut
 	 */
 	private MenuItem createMenuItem(String name, AbstractCommand command, char menuShortCut) {
-		MenuItem menuItem = new MenuItem(name, new MenuShortcut(menuShortCut));
+		MenuItem menuItem = menuFactory.createMenuItem(name, menuShortCut);		
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				command.execute();

@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import Controller.*;
-import Factory.AbstractCommandFactory;
+import Factory.*;
 import Model.Presentation;
 
 /**
@@ -24,6 +24,7 @@ public class SlideViewerFrame extends JFrame {
 	private static final long serialVersionUID = 3227L;
 	private SlideViewerComponent slideViewerComponent;
 	private AbstractCommandFactory commandFactory;
+	private AbstractMenuFactory menuFactory;
 		
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
@@ -32,11 +33,13 @@ public class SlideViewerFrame extends JFrame {
 	 * Constructor
 	 * @param title The title of the frame
 	 * @param presentation The presentation to be shown
-	 * @param commandFactory the command factory uses by some listeners of this frame 
+	 * @param commandFactory The command factory uses by some listeners of this frame 
+	 * @param menuFactory The factory for creating menu and menu items
 	 */
-	public SlideViewerFrame(String title, Presentation presentation, AbstractCommandFactory commandFactory) {
+	public SlideViewerFrame(String title, Presentation presentation, AbstractCommandFactory commandFactory, AbstractMenuFactory menuFactory) {
 		super(title);
-		this.commandFactory = commandFactory;		
+		this.commandFactory = commandFactory;
+		this.menuFactory = menuFactory;
 		setupWindow(presentation);
 	}
 
@@ -57,7 +60,7 @@ public class SlideViewerFrame extends JFrame {
 		getContentPane().add(this.slideViewerComponent);
 				
 		addKeyListener(new KeyController(commandFactory)); // een controller toevoegen
-		setMenuBar(new MenuController(commandFactory));	// nog een controller toevoegen
+		setMenuBar(new MenuController(commandFactory, menuFactory));	// nog een controller toevoegen
 		addMouseListener(new MouseController(presentation)); // nog een controller toevoegen
 		addMouseMotionListener(new MouseController(presentation)); // nog een controller toevoegen
 		
