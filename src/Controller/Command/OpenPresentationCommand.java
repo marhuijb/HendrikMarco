@@ -8,14 +8,21 @@ import Controller.Interface.*;
 public class OpenPresentationCommand extends CommandDecorator{
 	protected String fileName;
 	
-	/*
+	/**
 	 * Constructor
-	 * @param applicationController 
+	 * @param presentationController The presentation controller
+	 * @param applicationController The application controller
 	 */
 	public OpenPresentationCommand(IPresentationController presentationController, IApplicationController applicationController) {
 		super(presentationController, applicationController);		
 	}
-	
+
+	/**
+	 * Constructor
+	 * @param presentationController The presentation controller
+	 * @param applicationController The application controller
+	 * @param fileName Open the presentation in this file
+	 */
 	public OpenPresentationCommand(IPresentationController presentationController, IApplicationController applicationController,
 			String fileName) {
 		super(presentationController, applicationController);
@@ -23,6 +30,9 @@ public class OpenPresentationCommand extends CommandDecorator{
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * Execute the command
+	 */
 	public void execute() {	
 		if (applicationController != null && presentationController != null) {
 			if (fileName == "") {

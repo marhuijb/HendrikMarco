@@ -10,7 +10,7 @@ public class GoToSlideCommand extends CommandDecorator{
 	
 	protected int slideNumber = INITIAL_SLIDENUMBER;
 	
-	/*
+	/**
 	 * Constructor
 	 * @param presentationController 
 	 */
@@ -18,7 +18,7 @@ public class GoToSlideCommand extends CommandDecorator{
 		super(presentationController, null);
 	}
 	
-	/*
+	/**
 	 * Constructor
 	 * @param presentationController
 	 * @param slideNumber Go to this slide number  

@@ -4,7 +4,7 @@ import Factory.Implementation.*;
 import Factory.Interface.*;
 import Model.Presentation;
 
-/*
+/**
  * Class for reading presentation from files.
  */
 public class Reader extends AbstractReader{	
@@ -12,7 +12,7 @@ public class Reader extends AbstractReader{
 		super(presentationFactory, fileFormatFactory);
 	}
 	
-	/*
+	/**
 	 * Read a presentation from file
 	 * @param fileName The file is read and converted to a presentation. If empty then a demostration presentation is returned.   
 	 * @return The presentation
@@ -36,8 +36,5 @@ public class Reader extends AbstractReader{
 		}
 		
 		return presentation; 
-	}
-	
-	
-	
+	}		
 }

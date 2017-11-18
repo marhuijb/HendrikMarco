@@ -2,7 +2,7 @@ package Controller.Interface;
 
 import Model.Presentation;
 
-/*
+/**
  * Interface for the presentation controller.
  */
 public interface IPresentationController{

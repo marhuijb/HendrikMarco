@@ -15,15 +15,25 @@ import javax.sound.sampled.DataLine;
 public class PlaySoundCommand extends CommandDecorator{
 	private static final String sound = "/sound/yeehaw.wav";
 
+	/**
+	 * Constructor
+	 */
 	public PlaySoundCommand() {
 		super(null, null);
 	}
 	
+	/**
+	 * Exceute the command
+	 */
 	public void execute() {
 		play(sound);
 		super.execute();
 	}
 	
+	/**
+	 * Play a sound
+	 * @param url The url of the sound to be played
+	 */
 	private void play(String url) {
 		Clip clip = null;
 		try {

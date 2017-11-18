@@ -4,7 +4,6 @@ import java.util.*;
 
 /**
  * Interface for the CommandFactory
- * @author Marco Huijben 
  */
 public interface ICommandFactory{
 	public AbstractCommand createNextSlideCommand();

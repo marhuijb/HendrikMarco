@@ -23,7 +23,7 @@ public class ApplicationController implements IApplicationController{
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 	
 	/*
-	 * Open a new presentation
+	 * Open a the test presentation
 	 * @param presentation Fill with the new presentation
 	 */
 	public void open(Presentation presentation) {
@@ -37,9 +37,9 @@ public class ApplicationController implements IApplicationController{
 	}
 
 	/*
-	 * Open a new presentation
+	 * Open a new presentation.
 	 * @param presentation Fill with the new presentation 
-	 * @param fileName Open this file as the new presentation. 
+	 * @param fileName Open this file as the new presentation. If the file name isn't provided then the test presentation is loaded.
 	 */
 	public void open(Presentation presentation, String fileName) {
 		if (fileName == "") {
@@ -72,8 +72,7 @@ public class ApplicationController implements IApplicationController{
 			AbstractSaver saver = saverFactory.createSaver();
 			try {
 				saver.savePresentation(presentation);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (IOException e) {				
 				e.printStackTrace();
 			}
 		}

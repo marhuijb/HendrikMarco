@@ -1,6 +1,6 @@
 package Controller.Command;
 
-/*
+/**
  * Command class to exit the application
  */
 public class ExitCommand extends CommandDecorator{

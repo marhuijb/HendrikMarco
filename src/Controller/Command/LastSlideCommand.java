@@ -6,7 +6,8 @@ import Controller.Interface.*;
  * Command class for showing the last slide of a presentation. 
  */
 public class LastSlideCommand extends CommandDecorator{
-	/*
+	
+	/**
 	 * Constructor
 	 * @param presentationController 
 	 */

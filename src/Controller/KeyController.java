@@ -38,15 +38,12 @@ public class KeyController extends KeyAdapter {
 
 		keys.put((int) 'q', commandFactory.createExitCommand());
 		keys.put((int) 'Q', commandFactory.createExitCommand());
-
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
-
 		AbstractCommand abstractCommand= keys.get(keyEvent.getKeyCode());
 		if (abstractCommand != null) {
 			abstractCommand.execute();
-		}
-		
+		}		
 	}
 }

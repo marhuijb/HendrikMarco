@@ -20,7 +20,6 @@ import Model.Slide;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class SlideViewerComponent extends JComponent {
 		
 	private Slide slide; // de huidige slide
@@ -38,6 +37,11 @@ public class SlideViewerComponent extends JComponent {
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
 
+	/**
+	 * Constructor
+	 * @param pres The presentation
+	 * @param frame The parent frame for the component
+	 */
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
 		setBackground(BGCOLOR); 
 		presentation = pres;
@@ -45,10 +49,19 @@ public class SlideViewerComponent extends JComponent {
 		this.frame = frame;
 	}
 
+	/**
+	 * Get the preferred size of the slide
+	 * @return The preferred size
+	 */
 	public Dimension getPreferredSize() {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
 
+	/**
+	 * Update the component with new information
+	 * @param presentation The presentation
+	 * @param data The slide
+	 */
 	public void update(Presentation presentation, Slide data) {
 		if (data == null) {
 			repaint();
@@ -60,7 +73,10 @@ public class SlideViewerComponent extends JComponent {
 		frame.setTitle(presentation.getTitle());
 	}
 
-// teken de slide
+	/**
+	 * Draw the slide
+	 * @param g The graphics object on which the slide is drawn
+	 */
 	public void paintComponent(Graphics g) {
 		g.setColor(BGCOLOR);
 		g.fillRect(0, 0, getSize().width, getSize().height);

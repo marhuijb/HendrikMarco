@@ -5,17 +5,24 @@ import java.io.IOException;
 import Factory.Interface.*;
 import Model.*;
 
+/**
+ * Read and Save the presentation in format of version 1  
+ */
 public class XMLFormatV1 extends FileFormat{
 	protected static final String SAVEFILE = "dump.xml";
 
+	/**
+	 * The constructor
+	 * @param presentationFactory The factory to create presentation objects
+	 */
 	public XMLFormatV1(IPresentationFactory presentationFactory) {
 		super(presentationFactory);
-		// TODO Auto-generated constructor stub
 	}
 
-	/*
-	 * 
-	 * @see Util.Implementation.FileFormat#loadPresentation(java.lang.String)
+	/**
+	 * Load the presentation 
+	 * @param fileName Load the file with this name
+	 * @return The loaded presentation 
 	 */
 	public Presentation loadPresentation(String fileName) {
 		Presentation presentation = presentationFactory.createPresentation();
@@ -23,14 +30,17 @@ public class XMLFormatV1 extends FileFormat{
 		XMLAccessor accessor = new XMLAccessor();
 		try {
 			accessor.loadFile(presentation, fileName);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) { 
 			e.printStackTrace();
 		}
 		
 		return presentation;
 	}
 	
+	/**
+	 * Save the presentation
+	 * @param presentation The presentation to be saved
+	 */
 	public void savePresentation(Presentation presentation) {
 		XMLAccessor accessor = new XMLAccessor();
 		try {

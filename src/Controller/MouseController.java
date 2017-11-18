@@ -9,14 +9,24 @@ import javax.swing.event.MouseInputAdapter;
 import Model.Presentation;
 import Model.SlideItem;
 
+/**
+ * The controller of the mouse 
+ */
 public class MouseController extends MouseInputAdapter {
 	private Presentation presentation; // Er worden commando's gegeven aan de
 										// presentatie
 
-	public MouseController(Presentation p) {
-		presentation = p;
+	/**
+	 * Constructor
+	 * @param presentation This presentation 
+	 */
+	public MouseController(Presentation presentation) {
+		this.presentation = presentation;
 	}
 
+	/**
+	 * Handle a mouse click
+	 */
 	public void mouseClicked(MouseEvent e) {
 
 		int x = e.getX();
@@ -39,6 +49,10 @@ public class MouseController extends MouseInputAdapter {
 		}
 	}
 
+	/**
+	 * Handle the mouse move action
+	 * @param e The mouse event
+	 */
 	public void mouseMoved(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY() - 50;

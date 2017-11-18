@@ -2,6 +2,9 @@ package Factory.Interface;
 
 import Model.*;
 
+/**
+ * Interface for the presentation factory 
+ */
 public interface IPresentationFactory{
 	public Presentation createPresentation();
 	public Slide createSlide();

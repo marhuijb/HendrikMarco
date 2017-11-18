@@ -7,6 +7,9 @@ import Factory.Interface.*;
 import Model.*;
 import View.SlideViewerFrame;
 
+/**
+ * Interface for the applidation controller
+ */
 public interface IApplicationController{
 	public void open(Presentation presentation);
 	public void open(Presentation presentation, String fileName);

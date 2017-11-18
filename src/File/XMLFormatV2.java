@@ -15,6 +15,9 @@ import Factory.Interface.*;
 import Model.*;
 import Controller.Command.*;
 
+/**
+ * Read and Save the presentation in format of version 2  
+ */
 public class XMLFormatV2 extends FileFormat{
 	protected static final String SAVEFILE = "dump.xml";
 	
@@ -43,13 +46,18 @@ public class XMLFormatV2 extends FileFormat{
     
     private ICommandFactory commandFactory;
     
+	/**
+	 * The constructor
+	 * @param presentationFactory The factory to create presentation objects
+	 * @param commandFactory The factory to create commands
+	 */
 	public XMLFormatV2(IPresentationFactory presentationFactory, ICommandFactory commandFactory) {
 		super(presentationFactory);		
 		
 		this.commandFactory = commandFactory;
 	}
 
-	/*
+	/**
 	 * Read presentation from file
 	 * @param fileName The name of the file with the presentation
 	 * @return The loaded presentation
@@ -103,12 +111,11 @@ public class XMLFormatV2 extends FileFormat{
 		catch (ParserConfigurationException pcx) {
 			System.err.println(PCE);
 		}
-
 	
 		return presentation;
 	}
 	
-	/*
+	/**
 	 * Load a slide item (e.g. text, image or action)
 	 * @param slide The item will be added to this slide item
 	 * @param item XML element will be converted into a slide item or an slide command
@@ -148,7 +155,7 @@ public class XMLFormatV2 extends FileFormat{
 		}
 	}
 
-	/*
+	/**
 	 * Create a new command depending on the item.
 	 * @param item Contains information which command has to be created.
 	 * @return The created command
@@ -163,7 +170,7 @@ public class XMLFormatV2 extends FileFormat{
 		return commandDecorator;
 	}
 
-	/*
+	/**
 	 * Handle a image element.
 	 * @param item the item to be handled
 	 * @param decorator current position of the decorator chain. 
@@ -178,7 +185,7 @@ public class XMLFormatV2 extends FileFormat{
 		return bitmapItem;
 	}
 
-	/*
+	/**
 	 * Add a decorator element to the slide item 
 	 * @param decorator If not not null  Can be null
 	 * @param head The first command of the decorator chain
@@ -192,7 +199,7 @@ public class XMLFormatV2 extends FileFormat{
 		}
 	}
 
-	/*
+	/**
 	 * Handle a TextItem element.
 	 * @param item the item to be handled
 	 * @param decorator current position of the decorator chain. 
@@ -207,7 +214,7 @@ public class XMLFormatV2 extends FileFormat{
 		return textItem;
 	}
 	
-	/*
+	/**
 	 * Get the value of the level attribute
 	 * @param item Reads the level of this item.
 	 * @return The level
@@ -232,7 +239,7 @@ public class XMLFormatV2 extends FileFormat{
 		return level;
 	}
 	
-	/*
+	/**
 	 * Get the value of the attribute
 	 * @param item Reads the value of this attribute.
 	 * @return The value of the attribute
@@ -249,7 +256,7 @@ public class XMLFormatV2 extends FileFormat{
 		return null;
 	}	
 	
-	/*
+	/**
 	 * Get the title of the slide
 	 * @param element
 	 * @param tagName  
@@ -260,7 +267,7 @@ public class XMLFormatV2 extends FileFormat{
     	return titles.item(0).getTextContent();    	
     }
 
-	/*
+	/**
 	 * Save a presentation
 	 * @param presentation The presentation to be saved
 	 */
@@ -310,15 +317,18 @@ public class XMLFormatV2 extends FileFormat{
 		}
 	}
 
-	/*
+	/**
 	 * Print the start action element <action ... >
+	 * @param out Print to this writer
+	 * @param ident the ident level of the element
+	 * @command command The command to be printed
 	 */
 	private void printStartActionElement(PrintWriter out, int ident, AbstractCommand command) {
 		String attributes = getAttributes(command);
 		out.println(addIdent(ident) + "<action " + attributes + ">");
 	}
 
-	/*
+	/**
 	 * Gets the attributes as a string for a action, e.g. name="open" attr2="..." 
 	 * @param command Create the attributes string for this command
 	 * @return the attribute string
@@ -338,7 +348,7 @@ public class XMLFormatV2 extends FileFormat{
 		return attributes;
 	}
 	
-	/*
+	/**
 	 * Print a slide item
 	 * @param slideItem The slide item to be printed.
 	 * @param out 
@@ -362,6 +372,13 @@ public class XMLFormatV2 extends FileFormat{
 		}
 	}
 
+	/**
+	 * Print a action or a slide item element
+	 * @param command Print the command, can be null. The command belongs to the slide item
+	 * @param out Print to this writer
+	 * @param ident The ident level of the element
+	 * @param slideItem The slide item to be printed
+	 */
 	private void printElement(CommandDecorator command, PrintWriter out, int ident, SlideItem slideItem) {
 		AbstractCommand nextCommand = command != null ? command.getNextCommand() : null;
 		if (nextCommand instanceof CommandDecorator) {		
@@ -374,12 +391,23 @@ public class XMLFormatV2 extends FileFormat{
 		}		
 	}
 
+	/**
+	 * Print the title of the presentation
+	 * @param presentation Print the title of this presentation
+	 * @param out Print to this writer
+	 * @param ident The ident level
+	 */
 	private void printTitle(Presentation presentation, PrintWriter out, int ident) {
 		out.print(addIdent(ident) + "<showtitle>");
 		out.print(presentation.getTitle());
 		out.println("</showtitle>");
 	}
 
+	/**
+	 * Return a tab character for each ident
+	 * @param ident The ident value
+	 * @return a string of tab characters
+	 */
 	private String addIdent(int ident) {
 		String str = "";
 		for(int i=0;i<ident;i++)

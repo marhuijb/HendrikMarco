@@ -6,7 +6,8 @@ import Controller.Interface.*;
  * Command class for showing the next slide of a presentation. 
  */
 public class NextSlideCommand extends CommandDecorator{
-	/*
+	
+	/**
 	 * Constructor
 	 * @param presentationController 
 	 */

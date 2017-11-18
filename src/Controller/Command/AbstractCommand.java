@@ -2,7 +2,7 @@ package Controller.Command;
 
 import Controller.Interface.*;
 
-/*
+/**
  * Abstract class for a command
  */
 public abstract class AbstractCommand{

@@ -43,6 +43,10 @@ public class MenuController extends MenuBar {
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
 
+	/**
+	 * Constructor
+	 * @param commandFactory The command factory for creating commands.
+	 */
 	public MenuController(ICommandFactory commandFactory) {				
 		//Create file menu
 		Menu fileMenu = new Menu(FILE);		
@@ -68,7 +72,7 @@ public class MenuController extends MenuBar {
 		setHelpMenu(helpMenu);		// nodig for portability (Motif, etc.).
 	}
 	
-	/*
+	/**
 	 * Create a menu item and add the command as action listener. 
 	 * @param name The visible name of the menu item. The first character of the name is used as short cut.
 	 * @param command The command to be executed when the menu item is clicked.
@@ -77,7 +81,7 @@ public class MenuController extends MenuBar {
 		return createMenuItem(name, command, name.charAt(0));
 	}
 	
-	/*
+	/**
 	 * Create a menu item and add the command as action listener
 	 * @param name The visible name of the menu item
 	 * @param command The command to be executed when the menu item is clicked.

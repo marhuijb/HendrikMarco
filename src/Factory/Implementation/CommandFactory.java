@@ -5,7 +5,7 @@ import Controller.Command.*;
 import Controller.Interface.*;
 import Factory.Interface.ICommandFactory;
 
-/*
+/**
  * Factory for creating command objects
  */
 public class CommandFactory implements ICommandFactory{
@@ -25,7 +25,7 @@ public class CommandFactory implements ICommandFactory{
     protected IPresentationController presentationController;
 	protected IApplicationController applicationController;
 	
-	/* 
+	/**
 	 * Constructor
 	 * @param presentationController 
 	 */
@@ -34,7 +34,7 @@ public class CommandFactory implements ICommandFactory{
 		this.applicationController = applicationController;
 	}
 	
-	/*
+	/**
 	 * Create NextSlide Command
 	 *  @see Controller.Command.NextSlideCommand
 	 */
@@ -42,7 +42,7 @@ public class CommandFactory implements ICommandFactory{
 		return new NextSlideCommand(presentationController);
 	}
 	
-	/*
+	/**
 	 * Create Previous slide Command
 	 * @see Controller.Command.PreviousSlideCommand
 	 */
@@ -50,7 +50,7 @@ public class CommandFactory implements ICommandFactory{
 		return new PreviousSlideCommand(presentationController);
 	}
 	
-	/*
+	/**
 	 * Create FirstSlide Command
 	 *  @see Controller.Command.FirstSlideCommand
 	 */
@@ -58,7 +58,7 @@ public class CommandFactory implements ICommandFactory{
 		return new FirstSlideCommand(presentationController);
 	}
 	
-	/*
+	/**
 	 * Create Last slide Command
 	 * @see Controller.Command.LastSlideCommand
 	 */
@@ -66,7 +66,7 @@ public class CommandFactory implements ICommandFactory{
 		return new LastSlideCommand(presentationController);
 	}
 
-	/*
+	/**
 	 * Create GoTo Slide Command
 	 * @see Controller.Command.GotoSlideCommand
 	 */
@@ -74,7 +74,7 @@ public class CommandFactory implements ICommandFactory{
 		return new GoToSlideCommand(presentationController);
 	}	
 	
-	/*
+	/**
 	 * Create GoTo Slide Command
 	 * @see Controller.Command.GotoSlideCommand
 	 * @param slideNumber Go to this slide number
@@ -83,7 +83,7 @@ public class CommandFactory implements ICommandFactory{
 		return new GoToSlideCommand(presentationController, slideNumber);
 	}	
 	
-	/*
+	/**
 	 * Create Exit Command
 	 * @see Controller.Command.ExitCommand
 	 */
@@ -91,7 +91,7 @@ public class CommandFactory implements ICommandFactory{
 		return new ExitCommand();
 	}
 	
-	/*
+	/**
 	 * Create About Command
 	 * @see Controller.Command.ExitCommand
 	 */
@@ -99,7 +99,7 @@ public class CommandFactory implements ICommandFactory{
 		return new AboutCommand(applicationController);
 	}
 
-	/*
+	/**
 	 * Create Play Sound command
 	 * @see Controller.Command.PlaySoundCommand
 	 */
@@ -107,7 +107,7 @@ public class CommandFactory implements ICommandFactory{
 		return new PlaySoundCommand();
 	}
 
-	/*
+	/**
 	 * Create new presentation command
 	 * @see Controller.Command.NewPresentationCommand
 	 */
@@ -115,7 +115,7 @@ public class CommandFactory implements ICommandFactory{
 		return new NewPresentationCommand(presentationController, applicationController);
 	}
 
-	/*
+	/**
 	 * Create save presentation command
 	 * @see Controller.Command.SavePresentationCommand
 	 */
@@ -123,7 +123,7 @@ public class CommandFactory implements ICommandFactory{
 		return new SavePresentationCommand(presentationController, applicationController);
 	}
 
-	/*
+	/**
 	 * Create the open presentation command
 	 * @see Controller.Command.OpenPresentationCommand
 	 */
@@ -131,7 +131,7 @@ public class CommandFactory implements ICommandFactory{
 		return new OpenPresentationCommand(presentationController, applicationController);
 	}
 	
-	/*
+	/**
 	 * Create the open presentation command
 	 * @see Controller.Command.OpenPresentationCommand
 	 * @param fileName
@@ -140,7 +140,7 @@ public class CommandFactory implements ICommandFactory{
 		return new OpenPresentationCommand(presentationController, applicationController, fileName);
 	}
 	
-	/*
+	/**
 	 * Create a command. The following command's are available: next, previous, first, last, open, go, beep
 	 * @attributes A list with attributes for creating a command
 	 * @throws IllegalArgumentException If the command doesn't exist
@@ -171,7 +171,7 @@ public class CommandFactory implements ICommandFactory{
 		}
 	}
 	
-	/*
+	/**
 	 * Give the name of the command
 	 * @param command The name of this command is returned
 	 * @return The name of the command
@@ -187,6 +187,5 @@ public class CommandFactory implements ICommandFactory{
 		if (command instanceof PlaySoundCommand) return BEEP;
 		
 		throw new IllegalArgumentException(COMMAND_NOT_FOUND);
-	}
-	
+	}	
 }

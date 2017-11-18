@@ -7,17 +7,23 @@ import java.util.Vector;
 import Model.Style;
 
 /**
- * Factory class to create the different styles
+ * Factory class to create the different styles. The styles are cached by the factory.
  */
 public class StyleFactory {
 
 	private static Vector<Style> styles;
 
+	/**
+	 * Create the style factory
+	 */
 	public static void createStyleFactory() {
 		styles = new Vector<Style>();
 		createStyles();
 	}
 	
+	/**
+	 * Create the style objects
+	 */
 	private static void createStyles() {
 
 		styles.addElement(new Style.Builder() // style voor item-level 0
@@ -41,6 +47,11 @@ public class StyleFactory {
 				.build());
 	}
 
+	/**
+	 * Get a style for a level
+	 * @param level Get the style for this level 
+	 * @return The style which belongs to the level
+	 */
 	public static Style getStyle(int level) {
 		if (level >= styles.size()) {
 			return styles.lastElement();

@@ -2,7 +2,7 @@ package Controller.Command;
 
 import Controller.Interface.*;
 
-/*
+/**
  * Abstract class for the command class and is used in the decorator patterns for chaining commands to each others. 
  */
 public abstract class CommandDecorator extends AbstractCommand{
@@ -10,12 +10,12 @@ public abstract class CommandDecorator extends AbstractCommand{
 		super(presentationController, applicationController);
 	}
 	
-	/*
+	/**
 	 * A reference to the next command, which will be executed after this command.
 	 */
 	private AbstractCommand nextCommand;
 	
-	/*
+	/**
 	 * Execute the next command if available
 	 * @see Controller.Command.AbstractCommand#execute()
 	 */
@@ -25,7 +25,7 @@ public abstract class CommandDecorator extends AbstractCommand{
 		}
 	}
 	
-	/*
+	/**
 	 * Set the command which has to be executed after the current command.
 	 * @param command The next command
 	 */
@@ -33,7 +33,7 @@ public abstract class CommandDecorator extends AbstractCommand{
 		this.nextCommand = command;
 	}
 	
-	/*
+	/**
 	 * Get the next command.
 	 * @return The next command, null if not available.
 	 */

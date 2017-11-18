@@ -6,7 +6,8 @@ import Controller.Interface.*;
  * Command class creating a new presentation. 
  */
 public class NewPresentationCommand extends CommandDecorator{
-	/*
+	
+	/**
 	 * Constructor
 	 * @param applicationController 
 	 */

@@ -9,7 +9,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-/*
+/**
  * Factory class to create the correct file format class
  */
 public class FileFormatFactory{
@@ -24,14 +24,14 @@ public class FileFormatFactory{
 		this.commandFactory = commandFactory;
 	}
 		
-	/*
+	/**
 	 * Create a demo presentation format
 	 */
 	public DemoPresentation createDemoPresentation(){
 		return new DemoPresentation(presentationFactory);
 	}
 	
-	/*
+	/**
 	 * Determine the file format of a file. Therefore the dtd file is read from the file 
 	 * @param fileName The name of the file which format is determined.
 	 * @return The file format of the file.
@@ -51,16 +51,17 @@ public class FileFormatFactory{
 		return null;
 	}
 	
-	/*
+	/**
 	 * Get file format V2
 	 */
 	public FileFormat GetFileFormatV2() {
 		return new XMLFormatV2(presentationFactory, commandFactory);
 	}
 	
-	/*
+	/**
 	 * Read the dtd from the file
-	 * @param fileName
+	 * @param fileName This file is read
+	 * @return the dtd name of the file
 	 */
 	private String readDtdName(String fileName) {
 		//determine if file is V1 of V2 of the xml file
@@ -69,18 +70,19 @@ public class FileFormatFactory{
 	    builderFactory.setValidating(true);           // and validating parser feaures
 	    builderFactory.setIgnoringElementContentWhitespace(true); 
 	    DocumentBuilder builder = null;
-		try {
+		
+	    try {
 			builder = builderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+		} catch (ParserConfigurationException e) {			// 
 			e.printStackTrace();
 		}
-	    File file = new File(fileName);
+	    
+		File file = new File(fileName);
 		Document xmlDoc = null;
+		
 		try {
 			xmlDoc = builder.parse(file);
-		} catch (SAXException | IOException e) {
-			// TODO Auto-generated catch block
+		} catch (SAXException | IOException e) { 
 			e.printStackTrace();
 		}
 		DocumentType docType = xmlDoc.getDoctype(); 

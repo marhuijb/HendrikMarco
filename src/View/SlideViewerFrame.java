@@ -28,13 +28,22 @@ public class SlideViewerFrame extends JFrame {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	
+	/**
+	 * Constructor
+	 * @param title The title of the frame
+	 * @param presentation The presentation to be shown
+	 * @param commandFactory the command factory uses by some listeners of this frame 
+	 */
 	public SlideViewerFrame(String title, Presentation presentation, ICommandFactory commandFactory) {
 		super(title);
 		this.commandFactory = commandFactory;		
 		setupWindow(presentation);
 	}
 
-// De GUI opzetten
+	/**
+	 * Setup the windows
+	 * @param presentation The presentation to be controlled
+	 */ 
 	public void setupWindow(Presentation presentation) {
 		getContentPane().removeAll();
 		this.slideViewerComponent = new SlideViewerComponent(presentation, this); 
