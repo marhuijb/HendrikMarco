@@ -14,57 +14,76 @@ import Factory.StyleFactory;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
- * @version 1.7 2014/05/16 Hendrik en Marco
  */
 public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
-	/* Geen String meer maar een TextItem */
-	protected TextItem title; // de titel wordt apart bewaard
-	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
+	protected TextItem title; 
+	protected Vector<SlideItem> items; 
+
+	/**
+	 * Constructor
+	 */
 	public Slide() {
 		items = new Vector<SlideItem>();
 	}
 
-	// Voeg een SlideItem toe
+	/**
+	 * Add an slide item to the slide
+	 * @param anItem This item is added to the slide
+	 */
 	public void append(SlideItem anItem) {
 		items.addElement(anItem);
 	}
 
-	// geef de titel van de slide
+	/**
+	 * Get the title of the slide
+	 * @return The title of the slide
+	 */
 	public String getTitle() {
-		/* Geef nu de tekst van het TextItem terug */
 		return title.getText();
 	}
 
-	// verander de titel van de slide
-	public void setTitle(String newTitle) {
-		/* Creëer nu een TextItem op basis van de nieuwe titel */
-		title = new TextItem(0, newTitle);
+	/**
+	 * Set the title of the slide
+	 * @param newTitle The new title
+	 */
+	public void setTitle(TextItem newTitle) {		
+		this.title = newTitle;
 	}
 
-	// Maak een TextItem van String, en voeg het TextItem toe
-	//TODO: moet een factory worden?
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
-	}
-
-	// geef het betreffende SlideItem
+	/**
+	 * Get a specific slide item
+	 * @param number Number of the requested slide item 
+	 * @return The requested slide item
+	 */
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
 	}
 
-	// geef alle SlideItems in een Vector
+	/**
+	 * Get all slide items (exclusive the title)
+	 * @return All slide items
+	 */
 	public Vector<SlideItem> getSlideItems() {
 		return items;
 	}
 
-	// geef de afmeting van de Slide
+	/**
+	 * Get the amount of items on the slide
+	 * @return The amount of slide items
+	 */
 	public int getSize() {
 		return items.size();
 	}
 
+	/**
+	 * Draw the slide 
+	 * @param g Used to draw the slide
+	 * @param area The area to be draw
+	 * @param view
+	 */
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;
@@ -81,7 +100,11 @@ public class Slide {
 	    }
 	  }
 
-	// geef de schaal om de slide te kunnen tekenen
+	/**
+	 * Get the scale of the slide for drawing the slide.
+	 * @param area The area in which the slide is drawn.
+	 * @return the scale
+	 */
 	private float getScale(Rectangle area) {
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}

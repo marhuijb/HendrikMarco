@@ -71,8 +71,8 @@ public class Style {
 	}
 
 	/**
-	 * Get the ident
-	 * @return The ident value
+	 * Get the indent
+	 * @return The indent value
 	 */
 	public int getIndent() {
 		return indent;

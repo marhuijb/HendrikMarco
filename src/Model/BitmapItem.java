@@ -91,8 +91,7 @@ public class BitmapItem extends SlideItem {
 		int height = y + (int) (myStyle.getLeading() * scale);
 		g.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth(observer) * scale),
 				(int) (bufferedImage.getHeight(observer) * scale), observer);
-
-		// is er een actie op het item?
+ 
 		if (super.getSlideItemCommand() != null) {
 
 			int rectX = width;
@@ -112,7 +111,7 @@ public class BitmapItem extends SlideItem {
 	}
 
 	/**
-	 * 
+	 * Get a string line of the class
 	 */
 	public String toString() {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";

@@ -45,8 +45,7 @@ public class XMLFormatV1 extends FileFormat{
 		XMLAccessor accessor = new XMLAccessor();
 		try {
 			accessor.saveFile(presentation, SAVEFILE);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) { 
 			e.printStackTrace();
 		}
 	}

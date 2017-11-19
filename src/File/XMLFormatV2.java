@@ -83,7 +83,7 @@ public class XMLFormatV2 extends FileFormat{
 				
 				//Read the title of the slide
 				Slide slide = presentationFactory.createSlide();
-				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
+				slide.setTitle(presentationFactory.createTextItem(0, getTitle(xmlSlide, SLIDETITLE)));
 				presentation.append(slide);
 				
 				//Read the items of the slide

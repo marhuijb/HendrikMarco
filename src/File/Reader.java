@@ -17,7 +17,7 @@ public class Reader extends AbstractReader{
 	 * @return The presentation
 	 */
 	public Presentation readPresentation(String fileName) {
-		Presentation presentation = presentationFactory.createPresentation(); //TODO: later weghalen
+		Presentation presentation = null;
 		FileFormat fileFormat; 		
 		
 		if (fileName == null || fileName.length() == 0)
