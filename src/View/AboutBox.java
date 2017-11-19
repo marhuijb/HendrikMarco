@@ -25,6 +25,7 @@ public class AboutBox {
 				"Adapted by Gert Florijn (version 1.1) and " +
 				"Sylvia Stuurman (version 1.2 and higher) for the Open" +
 				"University of the Netherlands, 2002 -- now.\n" +
+				"Adapted by Hendrik van Haele and Marco Huijben, 2017\n" +
 				"Author's version available from http://www.darwinsys.com/",
 				"About JabberPoint",
 				JOptionPane.INFORMATION_MESSAGE);
