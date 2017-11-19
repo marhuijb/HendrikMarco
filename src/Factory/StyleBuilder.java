@@ -4,6 +4,10 @@ import java.awt.Color;
 
 import Model.Style;
 
+/**
+ * Builder to help construct the style objects part by part
+ */
+
 public class StyleBuilder {
 	private String fontName;
 	private int fontStyle;
